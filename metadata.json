@@ -1,0 +1,6 @@
+{
+  "name": "Sangjun Han Portfolio",
+  "description": "Academic and research portfolio of Dr. Sangjun Han, Postdoctoral Scholar at UC Berkeley, specializing in active metasurfaces, graphene plasmonics, and diffractive optics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
