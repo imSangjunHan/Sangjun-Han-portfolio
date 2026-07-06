@@ -45,9 +45,12 @@ export default function App() {
           className="flex items-center gap-2 cursor-pointer group"
           id="header-logo"
         >
-          <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center font-display font-black text-sm tracking-tighter">
-            SH
-          </div>
+          <img 
+            src="https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/2035a225e80799ca34e48ee92df087eec1ae24f6/Sangjun%20Han_profile.jpg" 
+            alt="Sangjun Han" 
+            className="w-8 h-8 rounded-xl object-cover border border-neutral-200/80 shadow-sm"
+            referrerPolicy="no-referrer"
+          />
           <div>
             <h1 className="text-xs font-black uppercase tracking-widest text-neutral-900 group-hover:text-black font-display leading-none">
               Sangjun Han

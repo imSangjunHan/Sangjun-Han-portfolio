@@ -16,9 +16,10 @@ export default function SkillsSection() {
 
   const categoryIcons = [
     { title: 'Device Fabrication', icon: Cpu, color: 'text-indigo-500 bg-indigo-50' },
-    { title: 'Optical Measurement', icon: Settings2, color: 'text-rose-500 bg-rose-50' },
+    { title: 'Automated Set-up for Optical Measurements', icon: Settings2, color: 'text-rose-500 bg-rose-50' },
     { title: 'Characterization Equipment', icon: LineChart, color: 'text-amber-500 bg-amber-55 bg-opacity-10' },
-    { title: 'Simulation & Programming', icon: Terminal, color: 'text-emerald-500 bg-emerald-50' }
+    { title: 'Simulation Software & Programming', icon: Terminal, color: 'text-emerald-500 bg-emerald-50' },
+    { title: 'Algorithms & Optimization Methods', icon: Sliders, color: 'text-teal-500 bg-teal-55 bg-opacity-10' }
   ];
 
   const getCategoryIcon = (title: string) => {
@@ -41,10 +42,19 @@ export default function SkillsSection() {
     };
   }).filter(category => category.skills.length > 0);
 
+  // Check if any of the cleanroom-related categories are present in search results
+  const isTargetCategoryVisible = filteredSkills.some(category => 
+    category.title === 'Device Fabrication' ||
+    category.title === 'Automated Set-up for Optical Measurements' ||
+    category.title === 'Characterization Equipment'
+  );
+
+  const shouldShowCleanroomAlert = !searchQuery || isTargetCategoryVisible;
+
   return (
     <div className="max-w-5xl mx-auto py-12 px-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>
           <h1 className="text-3xl font-display font-black text-neutral-900 tracking-tight mb-2">
             Technical Expertise
@@ -74,6 +84,24 @@ export default function SkillsSection() {
           )}
         </div>
       </div>
+
+      {/* Micro-Illustration Frame (Now at top, under search) */}
+      {shouldShowCleanroomAlert && (
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8 p-6 bg-yellow-50/50 border border-yellow-200/40 rounded-2xl"
+        >
+          <div>
+            <h4 className="text-sm font-bold text-neutral-900 mb-1 leading-none">
+              Cleanroom Fab & Characterization Facility Experience
+            </h4>
+            <p className="text-xs text-neutral-500 leading-relaxed">
+              Fabrication executed extensively in state-of-the-art cleanroom facilities including the <strong className="font-bold text-neutral-700">KAIST Nano-Fabrication Center (NNFC)</strong>, <strong className="font-bold text-neutral-700">UC Berkeley Marvell Nanofabrication Laboratory</strong>, and local national institutions.
+            </p>
+          </div>
+        </motion.div>
+      )}
 
       {/* Skills Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -108,15 +136,6 @@ export default function SkillsSection() {
                       <span className="text-xs font-medium text-neutral-800">
                         {skill.name}
                       </span>
-                      
-                      {/* Skill Level Badge */}
-                      <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded ${
-                        skill.level === 'Advanced' 
-                          ? 'bg-yellow-100 text-yellow-700'
-                          : 'bg-neutral-100 text-neutral-600'
-                      }`}>
-                        {skill.level}
-                      </span>
                     </div>
                   ))}
                 </div>
@@ -132,22 +151,6 @@ export default function SkillsSection() {
             </p>
           </div>
         )}
-      </div>
-
-      {/* Micro-Illustration Frame Footer */}
-      <div className="mt-12 p-6 bg-yellow-50/50 border border-yellow-200/40 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-        <div>
-          <h4 className="text-sm font-bold text-neutral-900 mb-1 leading-none">
-            Cleanroom Fab & Characterization Facility Experience
-          </h4>
-          <p className="text-xs text-neutral-500 leading-relaxed max-w-xl">
-            Fabrication executed extensively in state-of-the-art cleanroom facilities including the **KAIST Nano-Fabrication Center (NNFC)**, **UC Berkeley Marvell Nanofabrication Laboratory**, and local national institutions.
-          </p>
-        </div>
-        <div className="text-neutral-400 text-xs font-bold shrink-0 bg-white px-4 py-2 rounded-xl border border-neutral-200 shadow-sm leading-tight">
-          <span>Equipment Status: </span>
-          <span className="text-emerald-500">● Qualified</span>
-        </div>
       </div>
     </div>
   );

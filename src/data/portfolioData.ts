@@ -10,7 +10,7 @@ export const personalInfo = {
   email: "sangjun.han@berkeley.edu",
   googleScholar: "https://scholar.google.com/citations?user=4_YaxWMAAAAJ",
   github: "https://github.com/sangjunhan-optics",
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400", // High-quality professional avatar fallback
+  avatar: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/b3b7a9eaf03705367379d06f2f38c9982ec6eea7/Sangjun%20Han_profile.jpg", // High-quality professional avatar fallback
   office: "5101 Etcheverry Hall, University of California, Berkeley, Berkeley, CA, USA",
   phone: "+1-510-561-3433",
   tagline: "Designing light across scales — from active metasurfaces to diffractive optics for advanced manufacturing.",
@@ -347,48 +347,76 @@ export const technicalSkills: SkillCategory[] = [
   {
     title: "Device Fabrication",
     skills: [
-      { name: "Graphene transfer", level: "Advanced" },
+      { name: "Develop", level: "Advanced" },
+      { name: "O2 plasma ashing", level: "Advanced" },
+      { name: "Resist removal", level: "Advanced" },
+      { name: "Spin coating", level: "Advanced" },
+      { name: "Wafer dicing", level: "Advanced" },
       { name: "Atomic layer deposition (ALD)", level: "Advanced" },
-      { name: "Metal thin-film deposition", level: "Advanced" },
-      { name: "DUV & Maskless photolithography", level: "Advanced" },
-      { name: "Quartz wafer-based fabrication", level: "Advanced" },
+      { name: "Graphene transfer", level: "Advanced" },
+      { name: "Metal etching (ICP-RIE; Al)", level: "Advanced" },
+      { name: "Metal etching (wet; Al)", level: "Advanced" },
+      { name: "Metal thin-film deposition (Thermal evaporator)", level: "Advanced" },
+      { name: "Photolithography (Mask Aligner)", level: "Advanced" },
       { name: "Wafer membrane handling", level: "Advanced" },
-      { name: "Wafer dicing & Wire bonding", level: "Advanced" }
+      { name: "Wire bonding", level: "Advanced" },
+      { name: "Metal thin-film deposition (Sputter)", level: "Advanced" },
+      { name: "MOS cleaning", level: "Advanced" },
+      { name: "Non-MOS cleaning", level: "Advanced" },
+      { name: "Photolithography (DUV)", level: "Advanced" },
+      { name: "Photolithography (Maskless)", level: "Advanced" },
+      { name: "PMDS mold making/casting", level: "Advanced" },
+      { name: "Quartz etching (ICP-RIE)", level: "Advanced" },
+      { name: "Quartz wafer based fabrication", level: "Advanced" },
+      { name: "Si etching (ICP-RIE; Si)", level: "Advanced" },
+      { name: "Wafer geometry gauge", level: "Advanced" }
     ]
   },
   {
-    title: "Optical Measurement",
+    title: "Automated Set-up for Optical Measurements",
     skills: [
-      { name: "Phase-shifting interferometry", level: "Advanced" },
-      { name: "Beam-steering measurement setups", level: "Advanced" },
-      { name: "Automated optical setup development", level: "Advanced" },
-      { name: "Mid-infrared optical characterization", level: "Advanced" },
-      { name: "Lock-in amplifier measurements", level: "Advanced" },
-      { name: "Quantum cascade lasers (QCL)", level: "Advanced" },
-      { name: "MCT, Thermocouple & Array detectors", level: "Advanced" },
-      { name: "Keithley sourcemeter automation", level: "Advanced" }
+      { name: "Detector (MCT)", level: "Advanced" },
+      { name: "Detector (Mid-IR array detector)", level: "Advanced" },
+      { name: "Detector (Thermocouple)", level: "Advanced" },
+      { name: "Keithley sourcemeter", level: "Advanced" },
+      { name: "Lock-in amplifier", level: "Advanced" },
+      { name: "Phase shift interferometry", level: "Advanced" },
+      { name: "Probe station", level: "Advanced" },
+      { name: "Quantum cascade laser (QCL)", level: "Advanced" }
     ]
   },
   {
     title: "Characterization Equipment",
     skills: [
-      { name: "FTIR Spectroscopy", level: "Advanced" },
-      { name: "Atomic Force Microscopy (AFM)", level: "Advanced" },
-      { name: "s-SNOM Nano-Optics", level: "Advanced" }
+      { name: "Atomic force microscope (AFM)", level: "Advanced" },
+      { name: "Digital optical microscope", level: "Advanced" },
+      { name: "Fourier transform infrared spectroscopy (FTIR)", level: "Advanced" },
+      { name: "Scattering Scanning Near-field Optical Microscopy (s-SNOM)", level: "Advanced" },
+      { name: "Confocal microscope", level: "Advanced" },
+      { name: "Scanning electron microscope", level: "Advanced" },
+      { name: "Surface profilometer", level: "Advanced" }
     ]
   },
   {
-    title: "Simulation & Programming",
+    title: "Simulation Software & Programming",
     skills: [
+      { name: "KLayout (Ruby Code)", level: "Advanced" },
       { name: "Lumerical FDTD", level: "Advanced" },
-      { name: "COMSOL Multiphysics", level: "Advanced" },
-      { name: "RCWA (Reticolo, S4)", level: "Advanced" },
-      { name: "Numerical Optimizations (Genetic, BOBYQA)", level: "Advanced" },
-      { name: "Fourier/Hankel Wave Propagation", level: "Advanced" },
-      { name: "MATLAB", level: "Advanced" },
-      { name: "Python (Machine Learning, RCWA)", level: "Intermediate" },
-      { name: "Wolfram Mathematica", level: "Intermediate" },
-      { name: "AutoCAD & KLayout", level: "Intermediate" }
+      { name: "MATLAB (Automated optical set-up, Post-processes for the experiments, RCWA, Optimization algorithms, Quasinormal mode analysis)", level: "Advanced" },
+      { name: "AutoCAD", level: "Advanced" },
+      { name: "COMSOL Multiphysics (Wave optics module)", level: "Advanced" },
+      { name: "Python (RCWA, Optimization algorithm)", level: "Advanced" },
+      { name: "Wolfram Mathematica", level: "Advanced" }
+    ]
+  },
+  {
+    title: "Algorithms & Optimization Methods",
+    skills: [
+      { name: "Numerical optimization algorithms (Genetic algorithms, BOBYQA)", level: "Advanced" },
+      { name: "Rigorous coupled wave analysis (RCWA; Reticolo, S4)", level: "Advanced" },
+      { name: "Adjoint Method", level: "Advanced" },
+      { name: "Fourier (or Hankel)-based electromagnetic wave propagation simulation (Angular spectrum method)", level: "Advanced" },
+      { name: "Gerchberg-Saxton algorithm", level: "Advanced" }
     ]
   }
 ];

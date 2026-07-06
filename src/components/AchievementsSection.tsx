@@ -348,7 +348,7 @@ export default function AchievementsSection() {
 
           {/* 3. CONFERENCES TAB */}
           {activeSubTab === 'conferences' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-6">
               {conferences.map((conf) => (
                 <div 
                   key={conf.id}

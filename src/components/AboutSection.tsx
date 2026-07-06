@@ -41,7 +41,7 @@ export default function AboutSection() {
   // Specific research labs description matching user intent ("참여했던 연구실들")
   const researchLabs = [
     {
-      name: "Taylor Lab (UC Berkeley)",
+      name: "Hayden Taylor Lab (UC Berkeley)",
       focus: "Volumetric Additive Manufacturing & Optical Beam Shaping",
       period: "Apr. 2025 - Present",
       role: "Postdoctoral Researcher",
@@ -49,7 +49,7 @@ export default function AboutSection() {
       link: "https://taylorlab.me.berkeley.edu/"
     },
     {
-      name: "Nanophotonics Lab (KAIST)",
+      name: "Nano Optics Lab (KAIST)",
       focus: "Active Metasurfaces, Graphene Plasmonics & Computational Nano-Optics",
       period: "Mar. 2018 - Feb. 2025",
       role: "Graduate Research Assistant / Ph.D. Candidate",
@@ -57,7 +57,7 @@ export default function AboutSection() {
       link: "https://janglab.kaist.ac.kr/"
     },
     {
-      name: "Jang Group Undergraduate Research (KAIST)",
+      name: "Nano Optics Lab (KAIST) - Undergraduate Research",
       focus: "Graphene Optoelectronic Simulations",
       period: "Jan. 2017 - Feb. 2018",
       role: "Undergraduate Researcher",
@@ -134,9 +134,9 @@ export default function AboutSection() {
           {/* Aesthetic Secondary Image */}
           <div className="w-full h-48 rounded-2xl overflow-hidden shadow-inner border border-neutral-200">
             <img 
-              src="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&q=80&w=600&h=400" 
-              alt="Optical Lab" 
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              src="https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/2035a225e80799ca34e48ee92df087eec1ae24f6/Biography_1.png" 
+              alt="Biography" 
+              className="w-full h-full object-cover brightness-105 hover:scale-105 transition-transform duration-500"
               referrerPolicy="no-referrer"
             />
           </div>
@@ -183,12 +183,14 @@ export default function AboutSection() {
               className="bg-white p-5 rounded-2xl border border-neutral-150 shadow-sm flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-start justify-between gap-2 mb-2">
                   <span className="text-[10px] font-bold text-yellow-600 bg-yellow-100/50 px-2 py-0.5 rounded-full uppercase tracking-wider">
                     {lab.role}
                   </span>
-                  <span className="text-[10px] text-neutral-400 font-mono">
-                    {lab.period}
+                  <span className="text-[10px] text-neutral-400 font-mono text-right shrink-0 leading-tight">
+                    {lab.period.split(' - ')[0]} -
+                    <br />
+                    {lab.period.split(' - ')[1]}
                   </span>
                 </div>
                 <h3 className="text-base font-bold text-neutral-900 mb-1 leading-tight">
