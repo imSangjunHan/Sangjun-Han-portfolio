@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Briefcase, 
@@ -17,6 +17,37 @@ import { Project } from '../types';
 
 export default function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const renderTextWithBold = (text: string) => {
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, i) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={i} className="font-semibold text-neutral-900">{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        setSelectedProject(null);
+      }
+    };
+
+    // Use a small timeout to avoid immediate close when clicking to open
+    const timer = setTimeout(() => {
+      document.addEventListener('click', handleClickOutside);
+    }, 10);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [selectedProject]);
 
   // Find linked publication
   const getLinkedPublication = (pubId?: number) => {
@@ -41,7 +72,7 @@ export default function ProjectsSection() {
                 Core Research Projects
               </h1>
               <p className="text-sm text-neutral-500 max-w-xl">
-                A showcase of key scientific thrusts spanning volumetric 3D printing, active graphene nanostructures, and machine learning optics.
+                A showcase of key scientific thrusts spanning Volumetric Additive Manufacturing, active graphene nanostructures, and machine learning optics.
               </p>
             </div>
 
@@ -69,20 +100,9 @@ export default function ProjectsSection() {
                       <h3 className="text-base font-bold text-neutral-900 group-hover:text-black leading-snug mb-1">
                         {project.title}
                       </h3>
-                      {project.id === "active-metasurfaces" ? (
-                        <div className="mt-2 mb-3 rounded-xl overflow-hidden border border-neutral-150 shadow-sm max-h-[180px] flex items-center justify-center bg-neutral-50">
-                          <img 
-                            src="https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/8d53b5e246797a1a43d7001fcbb5c954b1abaa20/2020ACSNano_Cover_Full.jpg" 
-                            alt="ACS Nano Front Cover" 
-                            className="w-full h-full object-cover" 
-                            referrerPolicy="no-referrer"
-                          />
-                        </div>
-                      ) : (
-                        <p className="text-xs text-neutral-500 font-medium mb-3">
-                          {project.tagline}
-                        </p>
-                      )}
+                      <p className="text-xs text-neutral-500 font-medium mb-3">
+                        {project.tagline}
+                      </p>
                     </div>
 
                     <div className="text-[11px] font-bold text-black flex items-center gap-1 mt-2">
@@ -98,6 +118,7 @@ export default function ProjectsSection() {
           /* Detail View (Image 4) */
           <motion.div
             key="detail-view"
+            ref={cardRef}
             layoutId={`project-container-${selectedProject.id}`}
             className="bg-white rounded-3xl border border-neutral-150 p-6 md:p-8 shadow-xl"
             initial={{ scale: 0.95, opacity: 0 }}
@@ -142,7 +163,7 @@ export default function ProjectsSection() {
                   {selectedProject.title}
                 </h2>
 
-                <p className="text-sm md:text-base text-neutral-700 leading-relaxed mb-8">
+                <p className="text-sm md:text-base text-neutral-700 leading-relaxed mb-8 whitespace-pre-line">
                   {selectedProject.description}
                 </p>
 
@@ -155,26 +176,28 @@ export default function ProjectsSection() {
                     {selectedProject.keyDetails.map((detail, idx) => (
                       <li key={idx} className="flex gap-2.5 text-xs text-neutral-600">
                         <CheckCircle2 className="w-4.5 h-4.5 text-neutral-400 shrink-0 mt-0.5" />
-                        <span>{detail}</span>
+                        <span>{renderTextWithBold(detail)}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
                 {/* Core Accomplishments */}
-                <div className="mb-8">
-                  <h4 className="text-sm font-bold text-neutral-900 mb-4 flex items-center gap-2 uppercase tracking-wider border-l-2 border-black pl-2">
-                    Achievements & Impact
-                  </h4>
-                  <ul className="flex flex-col gap-3.5">
-                    {selectedProject.achievements.map((ach, idx) => (
-                      <li key={idx} className="flex gap-2.5 text-xs text-neutral-700 font-medium">
-                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0 mt-2" />
-                        <span>{ach}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {selectedProject.achievements && selectedProject.achievements.length > 0 && (
+                  <div className="mb-8">
+                    <h4 className="text-sm font-bold text-neutral-900 mb-4 flex items-center gap-2 uppercase tracking-wider border-l-2 border-black pl-2">
+                      Achievements & Impact
+                    </h4>
+                    <ul className="flex flex-col gap-3.5">
+                      {selectedProject.achievements.map((ach, idx) => (
+                        <li key={idx} className="flex gap-2.5 text-xs text-neutral-700 font-medium">
+                          <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0 mt-2" />
+                          <span>{renderTextWithBold(ach)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
               {/* Right Sidebar Column (Metadata) */}
@@ -249,6 +272,21 @@ export default function ProjectsSection() {
                   </div>
                 )}
               </div>
+            </div>
+
+            {/* Bottom Navigation */}
+            <div className="mt-12 pt-6 border-t border-neutral-100 flex justify-center">
+              <button
+                onClick={() => {
+                  setSelectedProject(null);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="flex items-center gap-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold uppercase tracking-wider px-6 py-3 rounded-xl transition-all cursor-pointer"
+                id="project-bottom-back-btn"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Back to Projects</span>
+              </button>
             </div>
           </motion.div>
         )}

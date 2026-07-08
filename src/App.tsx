@@ -77,7 +77,7 @@ export default function App() {
         </div>
 
         {/* Integrated Navigation Bar */}
-        <div className="w-full md:w-auto flex justify-center overflow-x-auto scrollbar-none -mx-4 px-4 md:mx-0 md:px-0">
+        <div className="w-full md:w-auto flex flex-wrap justify-center px-4 md:px-0">
           <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
         </div>
 

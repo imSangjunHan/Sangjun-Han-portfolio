@@ -53,7 +53,7 @@ export default function AchievementsSection({ activeSubTab: propActiveSubTab, se
       {/* Header */}
       <div className="mb-10 text-center md:text-left">
         <h1 className="text-3xl font-display font-black text-neutral-900 tracking-tight mb-2">
-          Academic Accomplishments
+          Academic Achievements
         </h1>
         <p className="text-sm text-neutral-500 max-w-xl">
           Detailed list of scientific peer-reviewed papers, international conference presentations, patent family publications, and research awards.

@@ -17,7 +17,6 @@ interface NavigationProps {
 
 export default function Navigation({ activeTab, setActiveTab }: NavigationProps) {
   const navItems = [
-    { id: 'home', label: 'Main', icon: Home },
     { id: 'about', label: 'Biography', icon: User },
     { id: 'projects', label: 'Projects', icon: Briefcase },
     { id: 'achievements', label: 'Achievements', icon: Award },
@@ -28,10 +27,10 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
 
   return (
     <nav 
-      className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1 max-w-full"
+      className="flex flex-wrap items-center justify-center gap-1 py-1 max-w-full"
       id="header-nav"
     >
-      <div className="flex items-center gap-1 md:gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-1 md:gap-2">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -41,7 +40,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               id={`nav-tab-${item.id}`}
-              className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 focus:outline-none cursor-pointer whitespace-nowrap ${
+              className={`relative flex items-center gap-1 md:gap-1.5 px-2 md:px-3 py-1.5 rounded-xl text-[11px] md:text-xs font-semibold transition-all duration-200 focus:outline-none cursor-pointer whitespace-nowrap ${
                 isActive 
                   ? 'text-neutral-950 font-bold' 
                   : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100/60'

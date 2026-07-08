@@ -95,4 +95,7 @@ export interface MediaExposure {
   description: string;
   link?: string;
   type: 'News' | 'Cover' | 'Achievement';
+  detailedParagraphs?: string[];
+  keyTakeaways?: string[];
+  image?: string;
 }

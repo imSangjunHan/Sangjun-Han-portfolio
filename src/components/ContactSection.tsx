@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Mail, 
   MapPin, 
-  Phone, 
   GraduationCap, 
   Send, 
   CheckCircle,
@@ -62,15 +61,6 @@ export default function ContactSection() {
       href: `https://maps.google.com/?q=${encodeURIComponent(personalInfo.office)}`,
       icon: MapPin,
       accent: "text-blue-500 bg-blue-50"
-    },
-    {
-      title: "Direct Tel Line",
-      detail: personalInfo.phone,
-      sub: "Available for business hour correspondence or formal academic panel coordinates.",
-      actionLabel: "Call Office",
-      href: `tel:${personalInfo.phone}`,
-      icon: Phone,
-      accent: "text-indigo-500 bg-indigo-50"
     }
   ];
 

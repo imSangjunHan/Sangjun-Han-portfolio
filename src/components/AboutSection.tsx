@@ -72,7 +72,7 @@ export default function AboutSection({ setActiveTab, setAchievementsSubTab }: Ab
       focus: "Volumetric Additive Manufacturing & Optical Beam Shaping",
       period: "Apr. 2025 - Present",
       role: "Postdoctoral Researcher",
-      description: "Working under Prof. Hayden Taylor. The lab focuses on designing mechanical systems and advanced manufacturing technologies. My core contribution lies in engineering diffractive glass optics to shape complex 3D laser beams, facilitating rapid, high-resolution volumetric 3D printing in photopolymers.",
+      description: "Working under Prof. Hayden Taylor. The lab focuses on designing mechanical systems and advanced manufacturing technologies. My core contribution lies in engineering diffractive glass optics to shape complex 3D laser beams, facilitating rapid, high-resolution volumetric additive manufacturing in photopolymers.",
       link: "https://taylorlab.me.berkeley.edu/"
     },
     {
