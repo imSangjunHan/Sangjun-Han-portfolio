@@ -32,7 +32,14 @@ export default function ContactSection() {
 
     setIsSubmitting(true);
     
-    // Simulate real API contact route dispatch
+    // Construct the mailto url to open the user's local mail client with pre-filled fields
+    const subjectLine = formData.subject ? `[Portfolio Inquiry] ${formData.subject}` : '[Portfolio Inquiry] Contact from Academic Portfolio';
+    const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nAffiliation: ${formData.affiliation || 'None'}\n\nMessage:\n${formData.message}`;
+    const mailtoUrl = `mailto:sangjun.han.contact@gmail.com?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(emailBody)}`;
+
+    // Trigger mail client launch
+    window.location.href = mailtoUrl;
+
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitSuccess(true);
@@ -40,16 +47,16 @@ export default function ContactSection() {
       
       // Auto-dismiss success alert after 5 seconds
       setTimeout(() => setSubmitSuccess(false), 5000);
-    }, 1500);
+    }, 1000);
   };
 
   const contactCards = [
     {
       title: "Academic Inquiries & Collaboration",
-      detail: personalInfo.email,
+      detail: "sangjun.han.contact@gmail.com",
       sub: "Always open to discussion regarding research, postdoctoral partnerships, or project collaborations.",
       actionLabel: "Email Dr. Han",
-      href: `mailto:${personalInfo.email}`,
+      href: "mailto:sangjun.han.contact@gmail.com",
       icon: Mail,
       accent: "text-emerald-500 bg-emerald-50"
     },
@@ -96,9 +103,16 @@ export default function ContactSection() {
                     </h3>
                   </div>
 
-                  <p className="text-sm font-bold text-neutral-900 font-display mb-1.5 leading-tight select-all">
-                    {card.detail}
-                  </p>
+                  {idx === 0 ? (
+                    <div className="flex flex-col gap-1 mb-1.5 font-display text-sm font-bold text-neutral-900">
+                      <p className="leading-tight select-all">sangjun.han.contact@gmail.com</p>
+                      <p className="leading-tight select-all">sangjun.han@berkeley.edu</p>
+                    </div>
+                  ) : (
+                    <p className="text-sm font-bold text-neutral-900 font-display mb-1.5 leading-tight select-all">
+                      {card.detail}
+                    </p>
+                  )}
                   <p className="text-[11px] text-neutral-500 leading-relaxed mb-4">
                     {card.sub}
                   </p>

@@ -65,14 +65,17 @@ export default function App() {
 
           {/* Academic CV on Mobile */}
           <div className="md:hidden">
-            <button
-              onClick={() => setIsCvOpen(true)}
+            <a
+              href="https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/ca15c9d7424232e50f1b6219d1e0b990be9c3445/%5BCV%5D%20Sangjun%20Han_UC%20Berkeley_Postdoc_Mechanical%20Engineering.pdf"
+              download="[CV] Sangjun Han_UC Berkeley_Postdoc_Mechanical Engineering.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg transition-all cursor-pointer"
               id="header-cv-btn-mobile"
             >
               <GraduationCap className="w-3.5 h-3.5" />
               <span>CV</span>
-            </button>
+            </a>
           </div>
         </div>
 
@@ -83,14 +86,17 @@ export default function App() {
 
         {/* Academic CV on Desktop */}
         <div className="hidden md:flex items-center gap-4">
-          <button
-            onClick={() => setIsCvOpen(true)}
+          <a
+            href="https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/ca15c9d7424232e50f1b6219d1e0b990be9c3445/%5BCV%5D%20Sangjun%20Han_UC%20Berkeley_Postdoc_Mechanical%20Engineering.pdf"
+            download="[CV] Sangjun Han_UC Berkeley_Postdoc_Mechanical Engineering.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-[10px] font-bold uppercase tracking-wider px-3.5 py-2 rounded-xl transition-all cursor-pointer"
             id="header-cv-btn"
           >
             <GraduationCap className="w-3.5 h-3.5" />
             <span>Academic CV</span>
-          </button>
+          </a>
         </div>
       </header>
 
