@@ -9,7 +9,7 @@ export const personalInfo = {
   location: "Berkeley, CA, USA",
   email: "sangjun.han@berkeley.edu",
   googleScholar: "https://scholar.google.com/citations?user=4_YaxWMAAAAJ",
-  github: "https://github.com/sangjunhan-optics",
+  linkedin: "https://www.linkedin.com/in/sangjun-han-optics/",
   avatar: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/b3b7a9eaf03705367379d06f2f38c9982ec6eea7/Sangjun%20Han_profile.jpg", // High-quality professional avatar fallback
   office: "5101 Etcheverry Hall, University of California, Berkeley, Berkeley, CA, USA",
   phone: "+1-510-561-3433",
@@ -105,6 +105,7 @@ export const publications: Publication[] = [
     doi: "10.1016/j.memsci.2026.125555",
     doiUrl: "https://doi.org/10.1016/j.memsci.2026.125555",
     isFirstAuthor: false,
+    thumbnailImage: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/316fee8e078cf59c43967ea4b3ddb82064dade4a/2026JourMemSci.jpg",
     status: "Published",
     abstractSummary: "This work develops a polymeric dehydration membrane strategy based on vapor-phase-induced interfacial interpenetration. The approach uses vapor-phase deposition to form an ultrathin, conformal top layer while preserving the underlying water-swellable polymer layer. The interpenetrated interface improves structural integration between the selective layer and support, targeting high-performance dehydration applications where water-selective transport, membrane stability, and thin-film integrity are critical.",
     portfolioEmphasis: ["Polymeric membrane design", "Vapor-phase processing", "Interfacial engineering", "Dehydration membrane performance", "Contribution area: formal analysis and validation"]
@@ -119,6 +120,7 @@ export const publications: Publication[] = [
     doi: "10.1021/acsnano.5c13223",
     doiUrl: "https://doi.org/10.1021/acsnano.5c13223",
     isFirstAuthor: false,
+    thumbnailImage: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/316fee8e078cf59c43967ea4b3ddb82064dade4a/2026ACSNano.jpg",
     status: "Published",
     abstractSummary: "Dynamic phase-only modulation in transmissive metasurfaces is challenging because the phase and amplitude of transmitted light are often coupled by interference between continuum and resonance modes. This work presents a diffraction-based framework to overcome these constraints. It develops the underlying theoretical model, establishes a theoretical performance bound, and demonstrates proof-of-concept transmissive metasurface designs based on electro-optic modulation. The study shows that diffraction control can enable large phase shifts while maintaining relatively uniform transmission amplitude, supporting applications in wavefront shaping and optical information processing.",
     portfolioEmphasis: ["Dynamic transmissive metasurfaces", "Phase-only modulation", "Diffraction engineering", "Electro-optic wavefront control", "Simulation and data analysis contribution"]
@@ -133,6 +135,7 @@ export const publications: Publication[] = [
     doi: "10.1038/s41377-025-01967-y",
     doiUrl: "https://doi.org/10.1038/s41377-025-01967-y",
     isFirstAuthor: true,
+    thumbnailImage: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/316fee8e078cf59c43967ea4b3ddb82064dade4a/2025LSA.jpg",
     status: "Published",
     abstractSummary: "This work demonstrates an active graphene metasurface that switches an optical beam between diffraction orders using only a single global gate bias. Unlike conventional active metasurfaces that require many individually controlled local electrodes, this device simplifies the driving architecture while maintaining strong beam-switching performance. The metasurface operates in the mid-infrared and achieves a large angular switching range by tuning the Fermi level of monolayer graphene. The device design is optimized using a genetic algorithm, and quasinormal mode (QNM) analysis explains the switching mechanism as interference between a gate-tunable resonant mode and a non-resonant background response.",
     portfolioEmphasis: ["First-author publication", "Active graphene metasurfaces", "Single-gate electro-optic beam switching", "Mid-infrared beam control", "Genetic-algorithm-based inverse design", "Nanofabrication and optical measurement", "Quasinormal mode analysis"],
@@ -147,6 +150,7 @@ export const publications: Publication[] = [
     arxiv: "2410.03009",
     arxivUrl: "https://arxiv.org/abs/2410.03009",
     isFirstAuthor: false,
+    thumbnailImage: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/316fee8e078cf59c43967ea4b3ddb82064dade4a/2024arXiv5.jpg",
     status: "Under Review",
     abstractSummary: "This work advances the implementation of Josephson junction spectroscopy in a scanning tunneling microscope (STM) geometry. The study explores high-capacitance superconducting STM tips and planar Nb-based Josephson junction devices to reduce linewidth, improve elevated-temperature performance, and mitigate thermal-noise and P(E)-broadening effects. The approach aims to enable local microwave spectroscopy as a diagnostic tool for probing microscopic noise sources relevant to superconducting qubits.",
     portfolioEmphasis: ["Electromagnetic and circuit-oriented analysis", "Superconducting spectroscopy platform", "Scanning tunneling microscope integration", "Device physics relevant to quantum information systems"]
@@ -160,6 +164,7 @@ export const publications: Publication[] = [
     arxiv: "2406.12904",
     arxivUrl: "https://arxiv.org/abs/2406.12904",
     isFirstAuthor: false,
+    thumbnailImage: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/316fee8e078cf59c43967ea4b3ddb82064dade4a/2024arXiv2.jpg",
     status: "Preprint",
     abstractSummary: "Meent is a Python-based differentiable electromagnetic simulator built around rigorous coupled-wave analysis (RCWA). It is designed to connect nanophotonic simulation with machine learning by supporting automatic differentiation and gradient-based optimization. The platform enables applications such as dataset generation for neural operators, reinforcement-learning-based nanophotonic device optimization, and inverse design using gradient-based solvers.",
     portfolioEmphasis: ["Differentiable electromagnetic simulation", "RCWA", "Machine learning for optics", "Nanophotonic inverse design", "Python-based research software"]
@@ -174,6 +179,7 @@ export const publications: Publication[] = [
     doi: "10.1002/adma.202105199",
     doiUrl: "https://doi.org/10.1002/adma.202105199",
     isFirstAuthor: false,
+    thumbnailImage: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/316fee8e078cf59c43967ea4b3ddb82064dade4a/2021AdvMater.jpg",
     status: "Published",
     abstractSummary: "This work introduces a label-free multimodal gas sensor that combines chemo-resistive sensing and surface-enhanced Raman spectroscopy (SERS) in a 3D cross-point multifunctional nanoarchitecture. The system integrates semiconducting SnO₂ nanowire frameworks with dual-functioning Au nanoparticles, enabling enhanced electrical and Raman sensing responses. By combining complementary sensing information, the platform can selectively and quantitatively estimate mixed-gas compositions at sub-100 ppm levels, including mixtures of structurally similar aromatic compounds such as nitrobenzene and toluene.",
     portfolioEmphasis: ["Multimodal sensing", "Chemo-resistive gas sensors", "SERS", "Plasmonic nanoparticles", "Electromagnetic analysis of sensing enhancement"]
@@ -189,6 +195,8 @@ export const publications: Publication[] = [
     doiUrl: "https://doi.org/10.1021/acsnano.9b09277",
     isFirstAuthor: true,
     isCoverArticle: true,
+    coverImage: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/8d53b5e246797a1a43d7001fcbb5c954b1abaa20/2020ACSNano_Cover_Full.jpg",
+    thumbnailImage: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/316fee8e078cf59c43967ea4b3ddb82064dade4a/2020ACSNano.jpg",
     status: "Published",
     abstractSummary: "This work proposes and analyzes electronically tunable graphene plasmonic metamolecules for complete complex amplitude modulation in the mid-infrared. Each metamolecule consists of two independently gated graphene plasmonic metaatoms, providing the two degrees of freedom needed to independently control the amplitude and phase of reflected light. The work develops a graphical design framework based on surface admittance and impedance, providing intuitive guidelines for metasurface design. The platform is demonstrated through simulations of dynamic beam steering and holographic wavefront reconstruction.",
     portfolioEmphasis: ["First-author publication", "Front Cover Article", "Graphene plasmonics", "Complete amplitude and phase control", "Active metasurfaces", "Surface admittance and equivalent circuit modeling", "Beam steering and holographic wavefront reconstruction"],
@@ -432,22 +440,6 @@ export const mediaExposures: MediaExposure[] = [
     type: "News"
   },
   {
-    id: 2,
-    title: "ACS Nano Front Cover Feature",
-    source: "ACS Publications",
-    date: "Jan. 2020",
-    description: "Dr. Sangjun Han's research paper, 'Complete Complex Amplitude Modulation with Electronically Tunable Graphene Plasmonic Metamolecules,' was selected as the prestigious Front Cover Article for ACS Nano, Volume 14, Issue 1.",
-    type: "Cover"
-  },
-  {
-    id: 3,
-    title: "Samsung Science & Technology Foundation Program Directors Award Presentation",
-    source: "Samsung Research News",
-    date: "Apr. 21, 2023",
-    description: "Recognized with the Samsung Science & Technology Foundation PD Award for breakthroughs in active metasurfaces and pioneering beam-steering technologies.",
-    type: "Achievement"
-  },
-  {
     id: 4,
     title: "Publication in Light: Science & Applications: Breakthrough in Single-Gate Active Beam Steering",
     source: "Springer Nature",
@@ -460,119 +452,80 @@ export const mediaExposures: MediaExposure[] = [
 
 export const projectsList: Project[] = [
   {
-    id: "vam-diffractive-optics",
-    title: "Diffractive Optics for Volumetric Additive Manufacturing (VAM)",
-    tagline: "Shaping green laser propagation to enable sub-second high-resolution 3D printing",
+    id: "diffractive-optics",
+    title: "Diffractive Optics Design & Fabrication",
+    tagline: "Shaping light fields for high-resolution, high-speed Volumetric 3D Printing (VAM)",
     category: "Diffractive Optics & 3D Printing",
-    image: "https://images.unsplash.com/photo-1615840287214-7fe58a8f668f?auto=format&fit=crop&q=80&w=600&h=450",
+    image: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/8d53b5e246797a1a43d7001fcbb5c954b1abaa20/DiffractiveOpticsThumbnails2.png",
     duration: "Apr. 2025 – Present",
-    role: "Lead Optical Designer & Fabricator",
+    role: "Postdoctoral Scholar / Lead Optical Designer & Fabricator",
     collaboration: "University of California, Berkeley (Taylor Lab)",
-    description: "At UC Berkeley, this project addresses the optical design and micro-fabrication of glass-based diffractive optical elements (DOEs) for fast, high-resolution volumetric 3D printing. Traditional layer-by-layer 3D printing is slow. Volumetric additive manufacturing shines a patterned 3D light field into a rotating vial of photopolymer resin, solidifying the entire object simultaneously within seconds. My role is to develop computational phase-shaping algorithms to generate long-depth-of-focus beams, fabricate these quartz DOEs in the cleanroom, and align the complex optical projection setups.",
+    description: "At UC Berkeley, this research program centers on the design, cleanroom micro-fabrication, and validation of glass-based Diffractive Optical Elements (DOEs) for Volumetric Additive Manufacturing (VAM). Traditional 3D printing is slow, building structures layer by layer. VAM bypasses this by shining a dynamic, feedback-controlled 3D pattern of light into a rotating vial of photocurable resin, solidifying full 3D objects in seconds. My work involves designing and fabricating micro-structured quartz-based DOEs to shape green laser beams into optimized propagation patterns with long depth-of-focus, ensuring sub-100-micron print resolution throughout the workspace volume.",
     keyDetails: [
-      "Designed and fabricated micro-structured quartz-based diffractive optical elements in cleanroom facilities.",
-      "Developed advanced wave-propagation algorithms using Hankel and Fourier transforms to simulate light propagation through highly refractive resins.",
-      "Generated custom optical beams with exceptionally long depth-of-focus to maintain printed feature resolution across the container volume.",
-      "Assembled and automated a spatial 3D beam profile characterization setup using precise motorized stages and high-dynamic-range CMOS cameras."
+      "Designed and micro-fabricated high-uniformity quartz diffractive optical elements (DOEs) in semiconductor-class cleanroom facilities.",
+      "Developed customized computational phase-shaping algorithms using Hankel and Fourier-based wave-propagation simulations.",
+      "Modeled complex photopolymerization kinetics in highly refractive resins under dynamic multi-directional laser irradiation.",
+      "Engineered and automated spatial 3D beam profile characterization rigs utilizing motorized micro-stages, CMOS sensors, and real-time beam diagnostics.",
+      "Investigated non-diffracting beams (e.g., Bessel beams, structured wavefronts) to dramatically increase the operational depth-of-focus."
     ],
     achievements: [
-      "Reduced volumetric printing time while preserving sub-100-micrometer lateral feature resolution.",
-      "Successfully modeled polymerization kinetics in relation to the dynamic 3D light distribution of Bessel and structured optical beams.",
-      "Established a high-accuracy, automated beam diagnostics rig to match experimental profiles with numerical angular spectrum propagation models."
-    ]
+      "Reduced volumetric 3D printing times down to seconds while maintaining high fidelity and structural integrity.",
+      "Built an automated optical characterization pipeline that matches experimental propagation profiles with numerical angular spectrum theories.",
+      "Established a robust, reliable fabrication process for multi-level phase-shaping optical elements on high-purity quartz substrates."
+    ],
+    publicationIds: []
   },
   {
-    id: "single-gate-graphene-metasurface",
-    title: "Single-Gate Electro-Optic Beam Switching Metasurfaces",
-    tagline: "Simplifying active flat optics architecture down to a single global gate bias",
-    category: "Metasurfaces & Nanophotonics",
-    image: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&q=80&w=600&h=450",
-    duration: "2022 – 2025",
-    role: "First Author / Lead Graduate Researcher",
+    id: "active-metasurfaces",
+    title: "Active Metasurface Design & Fabrication",
+    tagline: "Simplifying active flat optics architectures down to a single global gate bias for advanced mid-IR beam control",
+    category: "Active Flat Optics & Graphene Plasmonics",
+    image: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/8d53b5e246797a1a43d7001fcbb5c954b1abaa20/ActiveMetasurfaceThumbnails2.png",
+    duration: "Mar. 2018 – Feb. 2025",
+    role: "Graduate Research Assistant / Ph.D. Candidate",
     collaboration: "KAIST (Jang Lab)",
-    description: "Standard beam-steering active metasurfaces require hundreds of individually addressed sub-wavelength electrodes, leading to severe wire-bonding bottlenecks, complex circuit control, and massive parasitics. This research (published in Light: Science & Applications, 2025) solved this fundamental roadblock by proposing and demonstrating an active graphene metasurface that switches an optical beam between diffraction orders using only a single global gate bias. We utilized genetic algorithms for inverse design, fabricating the device with high-uniformity CVD graphene and demonstrating switching in the mid-infrared.",
+    description: "This research thrust focuses on the physical modeling, nanofabrication, and optoelectronic characterization of electrically reconfigurable flat optics operating in the mid-infrared spectral regime. Traditional spatial light modulators or active beam-steering devices rely on arrays of hundreds of individually addressed sub-wavelength electrodes, presenting monumental challenges in wire bonding, routing density, and parasitics. To break this bottleneck, we demonstrated a single-gate electro-optic beam switching metasurface that controls diffraction using only a single global voltage bias. Additionally, we pioneered graphene plasmonic active metamolecules with independently gated resonators, demonstrating full 360-degree phase modulation with constant amplitude—the holy grail of dynamic holography.",
     keyDetails: [
-      "Invented an asymmetric electrode spacing architecture that translates uniform gate bias into custom spatial phase-gradients.",
-      "Utilized genetic optimization algorithms coupled with RCWA electromagnetic solvers to find optimal sub-wavelength geometries.",
-      "Conducted rigorous Quasinormal Mode (QNM) analysis to mathematically explain the switching mechanism as interference between a tunable resonant mode and a non-resonant background.",
-      "Fabricated the device using state-of-the-art lithography, high-quality graphene transfer, and atomic layer deposition (ALD) of gate dielectrics.",
-      "Developed an automated mid-infrared optical characterization rig utilizing Quantum Cascade Lasers (QCLs) and lock-in amplifiers."
+      "Invented an asymmetric electrode-spacing metasurface architecture that translates a uniform, global gate bias into a spatial phase-gradient.",
+      "Designed multi-gated graphene plasmonic metamolecules containing independently tunable meta-atoms to decouple reflection phase and amplitude.",
+      "Developed a surface admittance and equivalent-circuit-based mapping methodology (comparable to microwave Smith charts) for intuitive metasurface impedance matching.",
+      "Fabricated devices in semiconductor cleanrooms using electron-beam lithography, high-uniformity chemical vapor deposition (CVD) graphene transfer, and atomic layer deposition (ALD) of thin-film gate dielectrics.",
+      "Assembled a fully automated mid-infrared optical characterization bench integrating Quantum Cascade Lasers (QCLs), Lock-in Amplifiers, and motorized goniometer stages."
     ],
     achievements: [
-      "Published as a first-author paper in the prestigious journal Light: Science & Applications (Nature Publishing Group, 2025).",
-      "Achieved a large angular beam switching angle in the mid-infrared spectral regime.",
-      "Eliminated the need for localized sub-wavelength electrode addressing, easing fabrication limits for active metasurfaces."
+      "Published first-author paper in Light: Science & Applications (Nature Publishing Group, 2025) introducing single-gate active beam steering.",
+      "Published first-author paper in ACS Nano (2020) on decoupling phase and amplitude, selected as the prestigious Front Cover Article.",
+      "Demonstrated complete 360° phase control in the mid-infrared utilizing highly localized graphene plasmon resonances.",
+      "Patented the core optoelectronic architectural concepts under a family of patents spanning the US, South Korea, China, and PCT.",
+      "Received the Samsung Science & Technology Foundation PD Award and the KAIST Kim Choong-Ki Best Research Achievement Award."
     ],
-    publicationId: 3
+    publicationIds: [7, 3]
   },
   {
-    id: "graphene-metamolecules-amplitude-phase",
-    title: "Graphene Metamolecules for Complete Complex Optical Control",
-    tagline: "Achieving full 360-degree phase modulation and amplitude control in the mid-IR",
-    category: "Nanophotonics & Graphene Plasmonics",
-    image: "https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&q=80&w=600&h=450",
-    duration: "2018 – 2020",
-    role: "First Author / Lead Graduate Researcher",
-    collaboration: "KAIST, Caltech, & University of Wisconsin-Madison",
-    description: "Modulating the phase of light over a full 360-degree range while maintaining constant amplitude is the holy grail of dynamic holography and beam shaping. However, optical resonators inherently couple amplitude and phase. In this project (featured as the Front Cover Article of ACS Nano, 2020), we proposed an electronically tunable graphene plasmonic metamolecule containing two independently gated meta-atoms. This provides two independent degrees of freedom, completely decoupled, enabling arbitrary control over both reflected amplitude and phase. We established an intuitive surface admittance/impedance-based equivalent circuit design framework.",
+    id: "nano-optics-simulation",
+    title: "Nano-Optics Simulation & Computational Modeling",
+    tagline: "Developing differentiable electromagnetic solvers and rigorous multi-physics models to accelerate optical discovery",
+    category: "Computational Photonics & Machine Learning",
+    image: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/8d53b5e246797a1a43d7001fcbb5c954b1abaa20/OpticsSImulationThumbnails2.png",
+    duration: "2018 – Present",
+    role: "Electromagnetic Simulation Expert",
+    collaboration: "ML2 Research, KAIST, MIT, Yale, & Caltech",
+    description: "This computational research thrust spans the development of next-generation electromagnetic solvers and rigorous multi-physics simulations to analyze complex nanophotonic phenomena. A primary milestone of this work is 'Meent,' an open-source, fully differentiable Rigorous Coupled-Wave Analysis (RCWA) solver. By supporting automatic differentiation via JAX and PyTorch backends, Meent seamlessly integrates electromagnetic wave calculations directly into machine learning pipelines, enabling ultra-fast gradient-based optimization and neural operator training. In addition, this work involves detailed Finite-Difference Time-Domain (FDTD) hot-spot analysis for multimodal SERS gas sensors, quasinormal mode (QNM) modeling of resonant interference, transmissive diffraction control, and superconducting Josephson junction microwave environment modeling.",
     keyDetails: [
-      "Conceived the multi-gated graphene plasmonic metamolecule concept supporting decoupled complex reflectivity control.",
-      "Developed a surface admittance-based graphical design chart analogous to the Smith chart for microwave network engineering.",
-      "Performed detailed numerical electromagnetic wave simulations of dynamic beam steering, continuous 2D lensing, and active holographic wavefront reconstructions.",
-      "Analyzed the localized surface plasmon resonance (LSPR) properties of patterned graphene nanoribbons under electrostatic doping."
+      "Co-developed Meent, a fully differentiable RCWA solver, enabling analytical gradient calculations of optical properties in milliseconds.",
+      "Constructed rigorous 3D FDTD simulations of localized surface plasmons (LSPRs) at gold-nanoparticle and metal-oxide nanowire crossings for SERS gas sensing.",
+      "Derived mathematical formulations of Quasinormal Modes (QNMs) to interpret active metasurface switching behaviors as interference between resonant and non-resonant responses.",
+      "Modeled electromagnetic propagation and diffraction control in transmissive metasurfaces to decouple phase and transmission constraints.",
+      "Analyzed the electromagnetic microwave environment of superconducting tunneling microscope (STM) tips to model Josephson junction linewidth broadening.",
+      "Conducted formal analysis and validation of vapor-phase interpenetrated interfaces for high-performance polymeric dehydration membranes."
     ],
     achievements: [
-      "Published as a first-author paper in ACS Nano (2020) and highlighted as the Front Cover Article.",
-      "The research was widely spotlighted in scientific media outlets (Phys.org, KAIST News, etc.) for its pioneering approach to active flat optics.",
-      "Successfully patented the technological core under a family of patents in the US, South Korea, China, and PCT.",
-      "Received the Kim Choong-Ki Best Research Achievement Award (2021) for this contribution."
+      "Published Meent as an open-source project on GitHub with an accompanying arXiv preprint (2024), establishing a free differentiable solver for the optics community.",
+      "Co-authored a high-impact paper in Advanced Materials (2021) combining electrical SnO₂ chemo-resistors with spectroscopic SERS, resolving multi-gas selectivity limits.",
+      "Co-authored a paper in ACS Nano (2026) demonstrating dynamic phase-only transmissive modulation via diffraction control.",
+      "Co-authored a paper in the Journal of Membrane Science (2026) analyzing vapor-phase interface enhancements.",
+      "Developed PyTorch and JAX-compatible optimization pipelines, reducing nanostructure inverse-design cycles from hours to seconds."
     ],
-    publicationId: 7
-  },
-  {
-    id: "meent-differentiable-simulation",
-    title: "Meent: Differentiable RCWA Electromagnetic Simulator",
-    tagline: "Connecting nanophotonic simulations to modern machine learning gradient pipelines",
-    category: "Simulation & Machine Learning",
-    image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=600&h=450",
-    duration: "2023 – 2024",
-    role: "Co-Developer / Simulation Expert",
-    collaboration: "ML2 Research & KAIST",
-    description: "Electromagnetic simulations like RCWA (Rigorous Coupled-Wave Analysis) are critical for analyzing periodic nanostructures. However, standard solvers are black boxes that do not supply gradients, hindering machine learning and gradient-based optimization. In this collaborative project, we developed 'Meent', an open-source, fully differentiable, Python-based RCWA solver supporting JAX and PyTorch backends. Meent allows users to calculate analytical gradients of optical properties with respect to geometric parameters in milliseconds, enabling ultra-fast inverse design, reinforcement learning, and neural operator training.",
-    keyDetails: [
-      "Co-authored and integrated mathematical solvers for differentiable RCWA algorithms.",
-      "Optimized Fourier-series matrix calculations and eigenvalue computations to maintain stability during backpropagation.",
-      "Built rigorous validation comparisons against commercial tools like Lumerical FDTD and Reticolo, ensuring absolute accuracy.",
-      "Demonstrated end-to-end gradient-based optimization of complex metasurface lenses and beam splitters in seconds."
-    ],
-    achievements: [
-      "Published as an open-source codebase on GitHub with an accompanying arXiv preprint (2024).",
-      "Provided the nanophotonics community with a free, high-performance, machine-learning-compatible RCWA simulation engine.",
-      "Enabled novel reinforcement-learning-based searches of large-scale optical metamaterial parameter spaces."
-    ],
-    publicationId: 5
-  },
-  {
-    id: "multimodal-gas-sensor",
-    title: "Synergistic Chemo-Resistive and SERS Multimodal Sensor",
-    tagline: "Enhancing gas sensor selectivity using SnO₂ nanowires and Au plasmonic nanoparticles",
-    category: "Sensing & Spectroscopy",
-    image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=600&h=450",
-    duration: "2020 – 2021",
-    role: "Electromagnetic Analysis Lead",
-    collaboration: "KAIST, MIT, and Yale University",
-    description: "Chemo-resistive gas sensors are highly sensitive but struggle with selectivity, while SERS (Surface-Enhanced Raman Spectroscopy) provides molecular specificity but lacks simple quantitative response. This project (published in Advanced Materials, 2021) integrated both sensing modalities into a single 3D cross-point nanoarchitecture. I led the optical electromagnetic modeling of the plasmonic hot-spots. By combining the SnO2 metal-oxide nanowire electrical changes with SnO2/Au nanoparticle SERS spectra, we achieved sub-100 ppm selective gas mixture analysis of highly identical molecules like nitrobenzene and toluene.",
-    keyDetails: [
-      "Constructed 3D finite-difference time-domain (FDTD) models of gold nanoparticle clusters on SnO₂ nanowire crossings.",
-      "Simulated localized electric field enhancements (hot-spots) at nanometer-scale gaps to calculate Raman enhancement factors.",
-      "Optimized the plasmonic nanoparticle size, shape, and distribution to maximize spatial overlap between electric fields and target gas molecules.",
-      "Provided physical insights linking localized plasmon resonances with chemical enhancement mechanisms."
-    ],
-    achievements: [
-      "Published in the high-impact journal Advanced Materials (2021).",
-      "Demonstrated quantitative, multiplex, label-free detection of volatile organic compounds (VOCs) and environmental gases.",
-      "Proved that combining orthogonal electrical and spectroscopic datasets resolves traditional gas mixtures selectivity bottlenecks."
-    ],
-    publicationId: 6
+    publicationIds: [6, 5, 4, 2, 1]
   }
 ];

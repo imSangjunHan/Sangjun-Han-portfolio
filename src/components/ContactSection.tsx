@@ -5,7 +5,6 @@ import {
   MapPin, 
   Phone, 
   GraduationCap, 
-  Github, 
   Send, 
   CheckCircle,
   Building2

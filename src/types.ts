@@ -28,6 +28,8 @@ export interface Publication {
   arxivUrl?: string;
   isFirstAuthor: boolean;
   isCoverArticle?: boolean;
+  coverImage?: string;
+  thumbnailImage?: string;
   status?: string; // e.g. "Published", "Under Review", "Preprint"
   abstractSummary: string;
   portfolioEmphasis: string[];
@@ -81,6 +83,7 @@ export interface Project {
   keyDetails: string[];
   achievements: string[];
   publicationId?: number; // link to publications
+  publicationIds?: number[]; // multiple links
   patentId?: number; // link to patents
 }
 

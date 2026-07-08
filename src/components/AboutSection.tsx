@@ -8,17 +8,44 @@ import {
   Award, 
   Building2, 
   Activity, 
-  BookOpen, 
   Compass 
 } from 'lucide-react';
-import { personalInfo, educationList, researchExperiences } from '../data/portfolioData';
+import { personalInfo, educationList } from '../data/portfolioData';
 
-export default function AboutSection() {
+interface AboutSectionProps {
+  setActiveTab?: (tab: string) => void;
+  setAchievementsSubTab?: (subTab: 'publications' | 'patents' | 'conferences' | 'awards') => void;
+}
+
+export default function AboutSection({ setActiveTab, setAchievementsSubTab }: AboutSectionProps) {
   const stats = [
-    { value: '8+', label: 'Years of Research', desc: 'Optics & Nanotech' },
-    { value: '7', label: 'Scientific Papers', desc: 'Nature LSA, ACS Nano' },
-    { value: '4', label: 'Patent Family', desc: 'US, CN, KR, PCT' },
-    { value: '3', label: 'Prestigious Awards', desc: 'KAIST & Samsung Foundation' }
+    { 
+      value: '8+', 
+      label: 'Years of Research', 
+      desc: 'Optics & Nanotech',
+      targetTab: 'projects'
+    },
+    { 
+      value: '7', 
+      label: 'Scientific Papers', 
+      desc: 'Nature LSA, ACS Nano',
+      targetTab: 'achievements',
+      targetSubTab: 'publications' as const
+    },
+    { 
+      value: '4', 
+      label: 'Patent Family', 
+      desc: 'US, CN, KR, PCT',
+      targetTab: 'achievements',
+      targetSubTab: 'patents' as const
+    },
+    { 
+      value: '3', 
+      label: 'Prestigious Awards', 
+      desc: 'KAIST & Samsung Foundation',
+      targetTab: 'achievements',
+      targetSubTab: 'awards' as const
+    }
   ];
 
   const personalDetails = [
@@ -53,7 +80,7 @@ export default function AboutSection() {
       focus: "Active Metasurfaces, Graphene Plasmonics & Computational Nano-Optics",
       period: "Mar. 2018 - Feb. 2025",
       role: "Graduate Research Assistant / Ph.D. Candidate",
-      description: "Advised by Prof. Min Seok Jang. Conducted high-impact research on dynamic flat optics in the mid-infrared. Developed single-gate active beam steerers and multi-gated graphene plasmonic metamolecules that successfully decoupled phase and amplitude modulation. Optimized nanostructures utilizing machine-learning gradients.",
+      description: "Advised by Prof. Min Seok Jang. Conducted high-impact research on active metasurfaces using graphene in the mid-infrared. Developed single-gate active beam steerers and multi-gated graphene plasmonic metamolecules that successfully decoupled phase and amplitude modulation. Utilized numerical inverse design methodologies and conducted complex frequency analysis of nonlocal metasurfaces.",
       link: "https://janglab.kaist.ac.kr/"
     },
     {
@@ -69,14 +96,6 @@ export default function AboutSection() {
     <div className="max-w-5xl mx-auto py-12 px-6">
       {/* Bio Header */}
       <div className="relative mb-12">
-        <motion.div
-          initial={{ x: -20, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          className="inline-block bg-yellow-300 text-black text-xs font-bold px-3 py-1 rounded-md shadow-sm mb-3 rotate-[-2deg]"
-        >
-          Hello there!!
-        </motion.div>
         <motion.h1
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -97,29 +116,50 @@ export default function AboutSection() {
           className="lg:col-span-2 flex flex-col justify-between"
         >
           <div>
-            <p className="text-neutral-700 leading-relaxed text-base md:text-lg mb-6">
-              {personalInfo.bio}
+            <p className="text-neutral-700 leading-relaxed text-sm md:text-base mb-6 font-sans">
+              I am an optical engineering and nanophotonics researcher working at the intersection of <strong className="font-semibold text-neutral-900">diffractive optics</strong>, <strong className="font-semibold text-neutral-900">metasurfaces</strong>, <strong className="font-semibold text-neutral-900">computational wavefront design</strong>, <strong className="font-semibold text-neutral-900">nanofabrication</strong>, and <strong className="font-semibold text-neutral-900">optical measurement</strong>. My current research at UC Berkeley focuses on designing and fabricating diffractive optical elements for fast, high-resolution volumetric additive manufacturing. My Ph.D. research at KAIST focused on active metasurfaces, graphene plasmonics, complex amplitude modulation, electro-optic beam switching, and electromagnetic analysis of nanophotonic devices.
             </p>
-            <p className="text-neutral-600 leading-relaxed text-sm md:text-base mb-6">
-              Throughout my academic journey, I have specialized in bridging nanophotonic device physics, numerical inverse design, semiconductor cleanroom fabrication, and fully automated optical measurement setups. I thrive on developing elegant computational and structural frameworks that command light in unprecedented ways—whether to control heat emissions, steer mid-infrared LIDAR beams, or print solid 3D structures out of fluid resins in seconds.
+            <p className="text-neutral-700 leading-relaxed text-sm md:text-base mb-6 font-sans">
+              Throughout my academic journey, I have specialized in bridging nanophotonic device physics, numerical inverse design, semiconductor cleanroom fabrication, and fully automated optical measurement setups. I thrive on developing elegant computational and structural frameworks that command light in unprecedented ways—whether to independently control the amplitude and phase of the light, steer mid-infrared beams, or print solid 3D structures.
             </p>
           </div>
 
           {/* Scientific Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
-            {stats.map((stat, idx) => (
-              <div key={idx} className="bg-white p-4 rounded-2xl border border-neutral-150 shadow-sm text-center">
-                <div className="text-2xl md:text-3xl font-display font-black text-black mb-1">
-                  {stat.value}
+            {stats.map((stat, idx) => {
+              const isClickable = !!setActiveTab;
+              const handleClick = () => {
+                if (setActiveTab && stat.targetTab) {
+                  setActiveTab(stat.targetTab);
+                  if (setAchievementsSubTab && stat.targetSubTab) {
+                    setAchievementsSubTab(stat.targetSubTab);
+                  }
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              };
+
+              return (
+                <div 
+                  key={idx} 
+                  onClick={handleClick}
+                  className={`bg-white p-4 rounded-2xl border border-neutral-150 shadow-sm text-center select-none transition-all duration-300 ${
+                    isClickable 
+                      ? 'cursor-pointer hover:border-neutral-900 hover:shadow-md hover:scale-[1.03] active:scale-[0.97]' 
+                      : ''
+                  }`}
+                >
+                  <div className="text-2xl md:text-3xl font-display font-black text-black mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs font-bold text-neutral-800 leading-tight mb-1">
+                    {stat.label}
+                  </div>
+                  <div className="text-[10px] text-neutral-400">
+                    {stat.desc}
+                  </div>
                 </div>
-                <div className="text-xs font-bold text-neutral-800 leading-tight mb-1">
-                  {stat.label}
-                </div>
-                <div className="text-[10px] text-neutral-400">
-                  {stat.desc}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
 
@@ -199,21 +239,10 @@ export default function AboutSection() {
                 <div className="text-xs font-semibold text-neutral-500 mb-3 font-display">
                   Focus: {lab.focus}
                 </div>
-                <p className="text-xs text-neutral-600 leading-relaxed mb-4">
+                <p className="text-xs text-neutral-600 leading-relaxed">
                   {lab.description}
                 </p>
               </div>
-              
-              {lab.link && (
-                <a 
-                  href={lab.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-[11px] font-semibold text-black hover:underline gap-1 mt-2 self-start"
-                >
-                  Visit Lab Website →
-                </a>
-              )}
             </div>
           ))}
         </div>
@@ -281,54 +310,6 @@ export default function AboutSection() {
           </div>
         </motion.div>
       </div>
-
-      {/* Expanded Career Details (Detailed Experience Bullets) */}
-      <motion.div 
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        className="mt-16"
-      >
-        <h2 className="text-xl md:text-2xl font-display font-extrabold text-neutral-900 mb-6 border-b pb-3 flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-neutral-700" />
-          <span>Research Appointments & Detail Scope</span>
-        </h2>
-        <div className="flex flex-col gap-8">
-          {researchExperiences.map((exp, index) => (
-            <div 
-              key={index}
-              className="bg-white p-6 rounded-2xl border border-neutral-150 shadow-sm"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-3 mb-4 border-neutral-100">
-                <div>
-                  <h3 className="text-base font-bold text-neutral-900 leading-tight">
-                    {exp.role}
-                  </h3>
-                  <div className="text-xs font-semibold text-neutral-500 font-display">
-                    {exp.institution} {exp.advisor && `(Advisor: ${exp.advisor})`}
-                  </div>
-                </div>
-                <div className="text-right sm:text-right">
-                  <div className="text-xs text-neutral-400 font-mono font-semibold">
-                    {exp.period}
-                  </div>
-                  <div className="text-[10px] text-neutral-400">
-                    {exp.location}
-                  </div>
-                </div>
-              </div>
-              <ul className="flex flex-col gap-2.5">
-                {exp.bullets.map((bullet, idx) => (
-                  <li key={idx} className="flex gap-2 text-xs leading-relaxed text-neutral-600">
-                    <span className="text-neutral-400 shrink-0 select-none">•</span>
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </motion.div>
     </div>
   );
 }

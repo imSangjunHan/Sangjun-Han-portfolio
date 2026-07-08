@@ -16,8 +16,16 @@ import {
 } from 'lucide-react';
 import { publications, patents, conferences, awards } from '../data/portfolioData';
 
-export default function AchievementsSection() {
-  const [activeSubTab, setActiveSubTab] = useState<'publications' | 'patents' | 'conferences' | 'awards'>('publications');
+interface AchievementsSectionProps {
+  activeSubTab?: 'publications' | 'patents' | 'conferences' | 'awards';
+  setActiveSubTab?: (tab: 'publications' | 'patents' | 'conferences' | 'awards') => void;
+}
+
+export default function AchievementsSection({ activeSubTab: propActiveSubTab, setActiveSubTab: propSetActiveSubTab }: AchievementsSectionProps) {
+  const [localActiveSubTab, setLocalActiveSubTab] = useState<'publications' | 'patents' | 'conferences' | 'awards'>('publications');
+  
+  const activeSubTab = propActiveSubTab !== undefined ? propActiveSubTab : localActiveSubTab;
+  const setActiveSubTab = propSetActiveSubTab !== undefined ? propSetActiveSubTab : setLocalActiveSubTab;
   const [expandedPubId, setExpandedPubId] = useState<number | null>(null);
   const [expandedPatId, setExpandedPatId] = useState<number | null>(null);
   const [pubFilter, setPubFilter] = useState<'all' | 'first-author'>('all');
@@ -134,6 +142,16 @@ export default function AchievementsSection() {
                         onClick={() => toggleExpandPub(pub.id)}
                         className="p-5 flex items-start gap-4 justify-between cursor-pointer select-none"
                       >
+                        {pub.thumbnailImage && (
+                          <div className="w-24 md:w-36 aspect-[4/3] rounded-none overflow-hidden border border-neutral-200 shrink-0 bg-neutral-50 shadow-sm flex items-center justify-center">
+                            <img 
+                              src={pub.thumbnailImage} 
+                              alt={`${pub.journal} Thumbnail`}
+                              className="w-full h-full object-cover rounded-none"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+                        )}
                         <div className="flex-1">
                           <div className="flex flex-wrap items-center gap-2 mb-2">
                             {pub.isFirstAuthor && (
@@ -182,6 +200,23 @@ export default function AchievementsSection() {
                             className="overflow-hidden bg-neutral-50 border-t border-neutral-150"
                           >
                             <div className="p-5 text-xs">
+                              {/* Front Cover Image */}
+                              {pub.coverImage && (
+                                <div className="mb-5">
+                                  <h4 className="font-bold text-neutral-800 uppercase tracking-wider text-[10px] mb-1.5">
+                                    Front Cover Image
+                                  </h4>
+                                  <div className="rounded-xl overflow-hidden border border-neutral-200/60 shadow-sm max-w-sm bg-white p-2">
+                                    <img 
+                                      src={pub.coverImage} 
+                                      alt={`${pub.journal} Front Cover`} 
+                                      className="w-full h-auto object-contain rounded-lg"
+                                      referrerPolicy="no-referrer"
+                                    />
+                                  </div>
+                                </div>
+                              )}
+
                               {/* Abstract */}
                               <div className="mb-4">
                                 <h4 className="font-bold text-neutral-800 uppercase tracking-wider text-[10px] mb-1.5">

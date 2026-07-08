@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { FileText, MapPin, Mail, Github, GraduationCap } from 'lucide-react';
+import { FileText, MapPin, Mail, Linkedin, GraduationCap } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 interface HomeSectionProps {
@@ -30,15 +30,18 @@ export default function HomeSection({ setActiveTab, onOpenCv }: HomeSectionProps
 
       <div className="relative z-10 max-w-4xl w-full flex flex-col items-center text-center">
         {/* Email Pill Tag */}
-        <motion.div
+        <motion.a
+          href={`mailto:${personalInfo.email}`}
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-yellow-300 text-black text-xs font-semibold tracking-wider uppercase shadow-sm mb-6"
+          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-yellow-300 hover:bg-yellow-400 text-black text-xs font-semibold tracking-wider uppercase shadow-sm mb-6 cursor-pointer transition-colors"
         >
           <Mail className="w-3.5 h-3.5" />
           <span>{personalInfo.email}</span>
-        </motion.div>
+        </motion.a>
 
         {/* Floating Intro */}
         <motion.h1
@@ -59,93 +62,100 @@ export default function HomeSection({ setActiveTab, onOpenCv }: HomeSectionProps
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-base md:text-lg font-medium text-neutral-600 max-w-xl mb-10"
+          className="text-base md:text-lg font-medium text-neutral-600 max-w-3xl mb-6 leading-relaxed text-center px-4"
         >
-          {personalInfo.role} at the <span className="font-semibold text-neutral-900">University of California, Berkeley</span>
+          <span className="inline text-2xl md:text-3xl text-neutral-300 font-serif select-none mr-1.5 align-top">“</span>
+          <span className="inline">
+            {personalInfo.tagline.includes(' — ') ? (
+              <>
+                {personalInfo.tagline.split(' — ')[0]} —
+                <br className="hidden md:inline" />
+                <span className="md:hidden"> </span>
+                {personalInfo.tagline.split(' — ')[1]}
+              </>
+            ) : (
+              personalInfo.tagline
+            )}
+          </span>
+          <span className="inline text-2xl md:text-3xl text-neutral-300 font-serif select-none ml-1.5 align-bottom">”</span>
         </motion.p>
 
-        {/* Centered Framed Portrait */}
+        {/* Main Topic Keywords in Button/Badge form */}
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3, type: 'spring', stiffness: 100 }}
-          className="relative group w-64 h-64 md:w-72 md:h-72 rounded-3xl overflow-hidden shadow-2xl mb-10 border-4 border-white"
+          initial={{ y: 15, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="flex flex-wrap items-center justify-center gap-2 mb-10 max-w-2xl px-4"
         >
-          <img 
-            src={personalInfo.avatar} 
-            alt={personalInfo.name} 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            referrerPolicy="no-referrer"
-          />
-          {/* Glass Overlay on Hover */}
-          <div className="absolute inset-0 bg-neutral-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {[
+            "Active Metasurfaces",
+            "Diffractive Optics",
+            "Wavefront Engineering",
+            "Nanophotonics inverse design"
+          ].map((topic) => (
+            <span
+              key={topic}
+              className="inline-block px-3.5 py-1.5 text-xs font-semibold text-neutral-600 bg-neutral-50 border border-neutral-200/80 rounded-full select-none cursor-default shadow-sm"
+            >
+              {topic}
+            </span>
+          ))}
         </motion.div>
 
-        {/* Primary Call-to-Actions (Mockup Download CV & Location badges) */}
+        {/* Centered Framed Portrait */}
+        <div className="flex flex-col items-center mb-10">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.3, type: 'spring', stiffness: 100 }}
+            className="relative w-64 h-64 md:w-72 md:h-72 rounded-3xl overflow-hidden shadow-2xl border-4 border-white mb-3"
+          >
+            <img 
+              src={personalInfo.avatar} 
+              alt={personalInfo.name} 
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="text-xs md:text-sm font-medium text-neutral-500 max-w-md text-center leading-relaxed"
+          >
+            {personalInfo.role}
+            <br />
+            at the <span className="font-semibold text-neutral-800">University of California, Berkeley</span>
+          </motion.p>
+        </div>
+
+        {/* Emphasized Connect Buttons */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="flex flex-col sm:flex-row items-center gap-6 mb-12"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md"
         >
-          <button 
-            onClick={onOpenCv}
-            className="flex items-center gap-2 bg-neutral-950 hover:bg-neutral-800 text-white px-6 py-3 rounded-xl font-semibold shadow-lg text-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-            id="home-view-cv-btn"
-          >
-            <FileText className="w-4 h-4" />
-            <span>View Full CV & Resume</span>
-          </button>
-
-          <div className="flex items-center gap-2 text-neutral-500 text-sm font-semibold">
-            <MapPin className="w-4 h-4 text-neutral-400" />
-            <span>{personalInfo.location}</span>
-          </div>
-        </motion.div>
-
-        {/* Dynamic Tagline Quote Box */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="border-l-4 border-yellow-400 pl-4 py-1 text-left max-w-xl mb-10"
-        >
-          <p className="text-neutral-500 italic text-sm md:text-base leading-relaxed font-sans font-medium">
-            "{personalInfo.tagline}"
-          </p>
-        </motion.div>
-
-        {/* Social Links (Scholar, GitHub, etc.) */}
-        <motion.div
-          initial={{ y: 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="flex items-center gap-4 text-xs font-semibold text-neutral-500"
-        >
-          <span>Connect:</span>
-          
           <a 
             href={personalInfo.googleScholar} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-neutral-600 hover:text-black transition-colors"
+            className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 border border-neutral-300 hover:border-neutral-900 bg-white text-neutral-800 hover:text-black rounded-xl font-semibold shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
             id="home-scholar-link"
           >
-            <GraduationCap className="w-4 h-4" />
+            <GraduationCap className="w-5 h-5 text-neutral-500" />
             <span>Google Scholar</span>
           </a>
 
-          <span className="text-neutral-300">•</span>
-
           <a 
-            href={personalInfo.github} 
+            href={personalInfo.linkedin} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-neutral-600 hover:text-black transition-colors"
-            id="home-github-link"
+            className="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-neutral-950 hover:bg-neutral-800 text-white rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
+            id="home-linkedin-link"
           >
-            <Github className="w-4 h-4" />
-            <span>GitHub</span>
+            <Linkedin className="w-5 h-5" />
+            <span>LinkedIn Profile</span>
           </a>
         </motion.div>
       </div>

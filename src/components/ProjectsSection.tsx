@@ -17,13 +17,6 @@ import { Project } from '../types';
 
 export default function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [filterCategory, setFilterCategory] = useState<string>('All');
-
-  const categories = ['All', 'Diffractive Optics & 3D Printing', 'Metasurfaces & Nanophotonics', 'Nanophotonics & Graphene Plasmonics', 'Simulation & Machine Learning', 'Sensing & Spectroscopy'];
-
-  const filteredProjects = filterCategory === 'All' 
-    ? projectsList 
-    : projectsList.filter(p => p.category === filterCategory);
 
   // Find linked publication
   const getLinkedPublication = (pubId?: number) => {
@@ -52,26 +45,9 @@ export default function ProjectsSection() {
               </p>
             </div>
 
-            {/* Filter Tabs */}
-            <div className="flex gap-2 mb-10 overflow-x-auto pb-2 scrollbar-none">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setFilterCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                    filterCategory === cat
-                      ? 'bg-neutral-950 text-white shadow-sm'
-                      : 'bg-white hover:bg-neutral-100 text-neutral-600 border border-neutral-200'
-                  }`}
-                >
-                  {cat === 'All' ? 'All Areas' : cat.split(' & ')[0]}
-                </button>
-              ))}
-            </div>
-
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project) => (
+              {projectsList.map((project) => (
                 <motion.div
                   key={project.id}
                   layoutId={`project-container-${project.id}`}
@@ -86,22 +62,27 @@ export default function ProjectsSection() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute top-3 left-3 bg-yellow-300 text-black text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">
-                      {project.category.split(' & ')[0]}
-                    </div>
                   </div>
 
                   <div className="p-5 flex-1 flex flex-col justify-between">
                     <div>
-                      <div className="text-[10px] text-neutral-400 font-mono font-bold mb-1 uppercase tracking-wider">
-                        {project.duration}
-                      </div>
                       <h3 className="text-base font-bold text-neutral-900 group-hover:text-black leading-snug mb-1">
                         {project.title}
                       </h3>
-                      <p className="text-xs text-neutral-500 font-medium mb-3">
-                        {project.tagline}
-                      </p>
+                      {project.id === "active-metasurfaces" ? (
+                        <div className="mt-2 mb-3 rounded-xl overflow-hidden border border-neutral-150 shadow-sm max-h-[180px] flex items-center justify-center bg-neutral-50">
+                          <img 
+                            src="https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/8d53b5e246797a1a43d7001fcbb5c954b1abaa20/2020ACSNano_Cover_Full.jpg" 
+                            alt="ACS Nano Front Cover" 
+                            className="w-full h-full object-cover" 
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      ) : (
+                        <p className="text-xs text-neutral-500 font-medium mb-3">
+                          {project.tagline}
+                        </p>
+                      )}
                     </div>
 
                     <div className="text-[11px] font-bold text-black flex items-center gap-1 mt-2">
@@ -204,14 +185,6 @@ export default function ProjectsSection() {
                     Project Directory
                   </h3>
                   <div className="flex flex-col gap-4">
-                    {/* Calendar */}
-                    <div className="flex items-start gap-3">
-                      <Calendar className="w-4.5 h-4.5 text-neutral-400 shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">Timeline</div>
-                        <div className="text-xs font-semibold text-neutral-800">{selectedProject.duration}</div>
-                      </div>
-                    </div>
                     {/* Role */}
                     <div className="flex items-start gap-3">
                       <Layers className="w-4.5 h-4.5 text-neutral-400 shrink-0 mt-0.5" />
@@ -232,37 +205,48 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* Linked Publications/Patents */}
-                {selectedProject.publicationId && (
-                  (() => {
-                    const pub = getLinkedPublication(selectedProject.publicationId);
-                    if (!pub) return null;
-                    return (
-                      <div className="bg-white p-5 rounded-2xl border-2 border-neutral-150 shadow-sm">
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-yellow-600 mb-3">
-                          <Bookmark className="w-3.5 h-3.5" />
-                          <span>Linked Publication</span>
-                        </div>
-                        <h4 className="text-xs font-bold text-neutral-900 mb-1 leading-snug">
-                          {pub.title}
-                        </h4>
-                        <p className="text-[10px] text-neutral-400 italic mb-3">
-                          {pub.journal} ({pub.year})
-                        </p>
-                        {pub.doiUrl && (
-                          <a
-                            href={pub.doiUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 bg-neutral-950 hover:bg-neutral-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all"
-                            id="project-pub-link"
-                          >
-                            <span>Read Paper</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                      </div>
-                    );
-                  })()
+                {((selectedProject.publicationIds && selectedProject.publicationIds.length > 0) || selectedProject.publicationId) && (
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-yellow-600">
+                      <Bookmark className="w-3.5 h-3.5" />
+                      <span>Linked Publications ({((selectedProject.publicationIds || []).length || (selectedProject.publicationId ? 1 : 0))})</span>
+                    </div>
+                    {(() => {
+                      const ids = selectedProject.publicationIds || (selectedProject.publicationId ? [selectedProject.publicationId] : []);
+                      return ids.map((id) => {
+                        const pub = getLinkedPublication(id);
+                        if (!pub) return null;
+                        const paperUrl = pub.doiUrl || pub.arxivUrl;
+                        const labelText = pub.doiUrl ? "Read Paper" : "Read arXiv";
+                        return (
+                          <div key={id} className="bg-white p-5 rounded-2xl border border-neutral-200 shadow-sm flex flex-col justify-between">
+                            <div>
+                              <h4 className="text-xs font-bold text-neutral-900 mb-1 leading-snug">
+                                {pub.title}
+                              </h4>
+                              <p className="text-[10px] text-neutral-400 italic mb-1">
+                                {pub.journal} ({pub.year})
+                              </p>
+                              <p className="text-[9px] text-neutral-500 font-medium mb-3 line-clamp-2">
+                                {pub.authors}
+                              </p>
+                            </div>
+                            {paperUrl && (
+                              <a
+                                href={paperUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-1 bg-neutral-950 hover:bg-neutral-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all self-start mt-1"
+                              >
+                                <span>{labelText}</span>
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            )}
+                          </div>
+                        );
+                      });
+                    })()}
+                  </div>
                 )}
               </div>
             </div>
