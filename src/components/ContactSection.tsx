@@ -90,7 +90,11 @@ export default function ContactSection() {
       }
     } catch (err: any) {
       console.error('Google Sign In failed:', err);
-      setAuthError('Failed to sign in with Google. Please try again.');
+      if (err && (err.code === 'auth/popup-closed-by-user' || err.message?.includes('popup-closed-by-user'))) {
+        setAuthError('The sign-in window was closed before completing authentication. Please click "Connect Gmail" again to log in.');
+      } else {
+        setAuthError(err.message || 'Failed to sign in with Google. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -164,7 +168,11 @@ export default function ContactSection() {
       setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (err: any) {
       console.error('Gmail transmission error:', err);
-      setAuthError(err.message || 'An error occurred while attempting to send the email.');
+      if (err && (err.code === 'auth/popup-closed-by-user' || err.message?.includes('popup-closed-by-user'))) {
+        setAuthError('The sign-in window was closed before completing authentication. Please connect your Gmail account to send the message directly.');
+      } else {
+        setAuthError(err.message || 'An error occurred while attempting to send the email.');
+      }
     } finally {
       setIsSubmitting(false);
     }
