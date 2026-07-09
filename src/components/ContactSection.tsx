@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Mail, 
   MapPin, 
-  GraduationCap, 
   Send, 
   CheckCircle,
   Building2,
-  LogOut,
-  AlertCircle
+  Copy,
+  Check,
+  ExternalLink
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
-import { initAuth, googleSignIn, logout } from '../lib/firebase';
-import { User } from 'firebase/auth';
-
-// Helper to build an RFC 822 formatted raw email and base64url encode it
-const buildRawEmail = ({ to, subject, body }: { to: string; subject: string; body: string }) => {
-  const emailLines = [
-    `To: ${to}`,
-    `Subject: =?utf-8?B?${btoa(unescape(encodeURIComponent(subject)))}?=`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset="UTF-8"',
-    '',
-    body
-  ];
-  const email = emailLines.join('\r\n');
-  const base64 = btoa(unescape(encodeURIComponent(email)));
-  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-};
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -39,143 +22,56 @@ export default function ContactSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-
-  // Authentication State
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
-  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
-  const [authError, setAuthError] = useState<string | null>(null);
-
-  // Initialize Auth State Listener
-  useEffect(() => {
-    const unsubscribe = initAuth(
-      (currentUser, currentToken) => {
-        setUser(currentUser);
-        setToken(currentToken);
-        setIsLoadingAuth(false);
-      },
-      () => {
-        setUser(null);
-        setToken(null);
-        setIsLoadingAuth(false);
-      }
-    );
-    return () => unsubscribe();
-  }, []);
-
-  // Pre-fill fields from user profile when they login
-  useEffect(() => {
-    if (user) {
-      setFormData(prev => ({
-        ...prev,
-        name: prev.name || user.displayName || '',
-        email: prev.email || user.email || ''
-      }));
-    }
-  }, [user]);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedBody, setCopiedBody] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSignIn = async () => {
-    try {
-      setIsSubmitting(true);
-      setAuthError(null);
-      const result = await googleSignIn();
-      if (result) {
-        setUser(result.user);
-        setToken(result.accessToken);
-      }
-    } catch (err: any) {
-      console.error('Google Sign In failed:', err);
-      if (err && (err.code === 'auth/popup-closed-by-user' || err.message?.includes('popup-closed-by-user'))) {
-        setAuthError('The sign-in window was closed before completing authentication. Please click "Connect Gmail" again to log in.');
-      } else {
-        setAuthError(err.message || 'Failed to sign in with Google. Please try again.');
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleCopyEmail = (email: string) => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
   };
 
-  const handleSignOut = async () => {
-    try {
-      await logout();
-      setUser(null);
-      setToken(null);
-    } catch (err) {
-      console.error('Sign out error:', err);
-    }
+  const handleCopyBody = () => {
+    const subjectLine = formData.subject ? `[Portfolio Inquiry] ${formData.subject}` : '[Portfolio Inquiry] Contact from Portfolio Website';
+    const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nAffiliation: ${formData.affiliation || 'None'}\n\nMessage:\n${formData.message}`;
+    const fullText = `To: sangjun.han.contact@gmail.com\nSubject: ${subjectLine}\n\n${emailBody}`;
+    
+    navigator.clipboard.writeText(fullText);
+    setCopiedBody(true);
+    setTimeout(() => setCopiedBody(false), 2000);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setIsSubmitting(true);
-    setAuthError(null);
-    
-    const subjectLine = formData.subject ? `[Portfolio Inquiry] ${formData.subject}` : '[Portfolio Inquiry] Contact from Academic Portfolio';
+
+    const subjectLine = formData.subject ? `[Inquiry] ${formData.subject}` : '[Inquiry] Contact from Portfolio Website';
     const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nAffiliation: ${formData.affiliation || 'None'}\n\nMessage:\n${formData.message}`;
+    const mailtoUrl = `mailto:sangjun.han.contact@gmail.com?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(emailBody)}`;
 
+    // Try opening via iframe-escape safe redirect/window launch
     try {
-      let currentToken = token;
-      
-      // If not logged in, trigger Google Login flow automatically
-      if (!currentToken) {
-        const result = await googleSignIn();
-        if (result) {
-          setUser(result.user);
-          setToken(result.accessToken);
-          currentToken = result.accessToken;
-        } else {
-          throw new Error('Google Authentication is required to transmit direct messages via Gmail.');
-        }
-      }
-
-      if (!currentToken) {
-        throw new Error('Gmail authorization token is missing. Please sign in with Google.');
-      }
-
-      // Transmit email directly using Google Gmail API
-      const res = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${currentToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          raw: buildRawEmail({
-            to: 'sangjun.han.contact@gmail.com',
-            subject: subjectLine,
-            body: emailBody
-          })
-        })
-      });
-
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        console.error('Gmail API send failed:', errData);
-        throw new Error(errData.error?.message || 'Failed to send message via Gmail API.');
-      }
-
-      setSubmitSuccess(true);
-      setFormData(prev => ({ ...prev, subject: '', message: '' }));
-      
-      // Auto-dismiss success alert after 5 seconds
-      setTimeout(() => setSubmitSuccess(false), 5000);
-    } catch (err: any) {
-      console.error('Gmail transmission error:', err);
-      if (err && (err.code === 'auth/popup-closed-by-user' || err.message?.includes('popup-closed-by-user'))) {
-        setAuthError('The sign-in window was closed before completing authentication. Please connect your Gmail account to send the message directly.');
-      } else {
-        setAuthError(err.message || 'An error occurred while attempting to send the email.');
-      }
-    } finally {
-      setIsSubmitting(false);
+      const link = document.createElement('a');
+      link.href = mailtoUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.warn('Mailto link launch blocked or failed:', err);
     }
+
+    // Set success to true to show fallback copying help panel
+    setSubmitSuccess(true);
+    setIsSubmitting(false);
   };
 
   const contactCards = [
@@ -200,7 +96,7 @@ export default function ContactSection() {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto py-12 px-6">
+    <div className="max-w-5xl mx-auto py-12 px-6" id="contact-view">
       {/* Header */}
       <div className="mb-12 text-center">
         <h1 className="text-3xl font-display font-black text-neutral-900 tracking-tight mb-2">
@@ -232,9 +128,20 @@ export default function ContactSection() {
                   </div>
 
                   {idx === 0 ? (
-                    <div className="flex flex-col gap-1 mb-1.5 font-display text-sm font-bold text-neutral-900">
-                      <p className="leading-tight select-all">sangjun.han.contact@gmail.com</p>
-                      <p className="leading-tight select-all">sangjun.han@berkeley.edu</p>
+                    <div className="flex flex-col gap-2 mb-2 font-display text-sm font-bold text-neutral-900">
+                      <div className="flex items-center justify-between gap-2 group">
+                        <span className="leading-tight select-all">sangjun.han.contact@gmail.com</span>
+                        <button 
+                          onClick={() => handleCopyEmail('sangjun.han.contact@gmail.com')}
+                          className="p-1 rounded bg-neutral-50 hover:bg-neutral-100 text-neutral-400 hover:text-neutral-600 transition-colors cursor-pointer border-none outline-none"
+                          title="Copy email to clipboard"
+                        >
+                          {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 border-t border-neutral-100 pt-2">
+                        <span className="leading-tight select-all">sangjun.han@berkeley.edu</span>
+                      </div>
                     </div>
                   ) : (
                     <p className="text-sm font-bold text-neutral-900 font-display mb-1.5 leading-tight select-all">
@@ -297,49 +204,8 @@ export default function ContactSection() {
           >
             <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider border-b border-neutral-100 pb-2 flex items-center gap-2">
               <Send className="w-4.5 h-4.5 text-neutral-400" />
-              <span>Direct Communication Channel</span>
+              <span>Send Message</span>
             </h3>
-
-            {/* Google Authentication Status Panel */}
-            <div className="bg-neutral-50 px-4 py-3 rounded-2xl border border-neutral-200/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner">
-              <div className="flex items-center gap-2.5">
-                <div className={`w-2.5 h-2.5 rounded-full ${user ? 'bg-emerald-500 animate-pulse' : 'bg-neutral-300'}`} />
-                <div>
-                  <h4 className="text-[11px] font-bold text-neutral-700 leading-none">
-                    {user ? 'Authenticated with Gmail' : 'Direct Email Transmission'}
-                  </h4>
-                  <p className="text-[10px] text-neutral-400 font-medium mt-1">
-                    {user ? `Connected as ${user.email}` : 'Sign in to send your message directly via Google API'}
-                  </p>
-                </div>
-              </div>
-
-              {user ? (
-                <button
-                  type="button"
-                  onClick={handleSignOut}
-                  className="flex items-center gap-1 text-[10px] font-extrabold text-neutral-500 hover:text-neutral-800 bg-neutral-200/50 hover:bg-neutral-200 px-3 py-1.5 rounded-lg transition-all cursor-pointer border-none outline-none"
-                >
-                  <LogOut className="w-3 h-3" />
-                  <span>Disconnect</span>
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handleSignIn}
-                  className="flex items-center gap-1.5 text-[10px] font-extrabold text-neutral-850 hover:text-black bg-white border border-neutral-200 hover:border-neutral-300 shadow-sm px-3 py-1.5 rounded-lg transition-all cursor-pointer border-none outline-none"
-                >
-                  {/* Styled Google Icon */}
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
-                    <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.3 1 3.3 3.7 1.3 7.7l3.7 2.9C6 7.4 8.7 5 12 5z"/>
-                    <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.1-2 3.7-5 3.7-9z"/>
-                    <path fill="#FBBC05" d="M5 14.2c-.3-.8-.4-1.7-.4-2.2s.1-1.4.4-2.2L1.3 6.9C.5 8.5 0 10.2 0 12s.5 3.5 1.3 5.1l3.7-2.9z"/>
-                    <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.3 0-6-2.4-7-5.6l-3.7 2.9C3.3 19.3 7.3 23 12 23z"/>
-                  </svg>
-                  <span>Connect Gmail</span>
-                </button>
-              )}
-            </div>
 
             {/* Notification Bar */}
             <AnimatePresence>
@@ -348,39 +214,46 @@ export default function ContactSection() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl text-emerald-800 text-xs font-bold flex items-center gap-2.5 shadow-sm"
+                  className="bg-emerald-50 border border-emerald-150 p-4 rounded-2xl text-emerald-950 text-xs flex flex-col gap-3 shadow-sm"
                   id="contact-form-success"
                 >
-                  <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0" />
-                  <div>
-                    <p className="leading-tight">Thank you! Your message has been sent successfully.</p>
-                    <p className="text-[10px] text-emerald-600 font-medium mt-0.5">We transmitted the email directly via your Gmail API client.</p>
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-bold leading-tight">Opened Email Client!</p>
+                      <p className="text-[11px] text-emerald-700 font-medium mt-1">
+                        We attempted to open your local email client (such as Gmail or Mail app) pre-filled with your message. 
+                      </p>
+                    </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
 
-            {/* Error Notification Bar */}
-            <AnimatePresence>
-              {authError && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="bg-rose-50 border border-rose-200 p-3.5 rounded-xl text-rose-800 text-xs font-bold flex items-center gap-2.5 shadow-sm"
-                  id="contact-form-error"
-                >
-                  <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
-                  <div className="flex-grow">
-                    <p className="leading-tight">{authError}</p>
+                  {/* Fallback Help Center */}
+                  <div className="bg-white/80 p-3.5 rounded-xl border border-emerald-100 flex flex-col gap-2.5 mt-1">
+                    <p className="text-[10px] text-neutral-500 font-semibold uppercase tracking-wider">
+                      ⚠️ Did the email app fail to open?
+                    </p>
+                    <p className="text-[11px] text-neutral-600 leading-normal">
+                      Some browsers or security settings block direct mail opening in sandboxes. You can copy the email or the complete pre-formatted message below to send manually:
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      <button
+                        type="button"
+                        onClick={() => handleCopyEmail('sangjun.han.contact@gmail.com')}
+                        className="flex items-center gap-1.5 text-[10px] font-bold text-neutral-700 bg-white hover:bg-neutral-50 border border-neutral-200 px-3 py-2 rounded-lg transition-all cursor-pointer outline-none"
+                      >
+                        {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-400" />}
+                        <span>{copiedEmail ? 'Copied Email!' : 'Copy Email Address'}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCopyBody}
+                        className="flex items-center gap-1.5 text-[10px] font-bold text-neutral-700 bg-white hover:bg-neutral-50 border border-neutral-200 px-3 py-2 rounded-lg transition-all cursor-pointer outline-none"
+                      >
+                        {copiedBody ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-400" />}
+                        <span>{copiedBody ? 'Copied Full Content!' : 'Copy Full Message Text'}</span>
+                      </button>
+                    </div>
                   </div>
-                  <button 
-                    type="button" 
-                    onClick={() => setAuthError(null)}
-                    className="text-rose-400 hover:text-rose-600 text-[10px] uppercase font-bold border-none bg-transparent cursor-pointer"
-                  >
-                    Dismiss
-                  </button>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -468,7 +341,7 @@ export default function ContactSection() {
                 rows={5}
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Type your academic or collaboration message details here..."
+                placeholder="Type your message details here..."
                 className="bg-neutral-50 border border-neutral-200 px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-black resize-y"
               />
             </div>
@@ -480,20 +353,8 @@ export default function ContactSection() {
               className="flex items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-850 text-white disabled:bg-neutral-300 disabled:text-neutral-500 py-3.5 rounded-xl text-xs font-bold transition-all mt-2 cursor-pointer shadow-md select-none border-none outline-none"
               id="contact-form-submit-btn"
             >
-              {isSubmitting ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                  <span>Transmitting via Gmail API...</span>
-                </>
-              ) : (
-                <>
-                  <Send className="w-3.5 h-3.5" />
-                  <span>{user ? 'Transmit via Gmail' : 'Connect & Transmit via Gmail'}</span>
-                </>
-              )}
+              <Send className="w-3.5 h-3.5" />
+              <span>Launch Mail Application</span>
             </button>
           </form>
         </div>
