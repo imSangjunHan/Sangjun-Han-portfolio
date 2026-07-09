@@ -9,7 +9,7 @@ export const personalInfo = {
   location: "Berkeley, CA, USA",
   email: "sangjun.han.contact@gmail.com",
   googleScholar: "https://scholar.google.com/citations?user=4_YaxWMAAAAJ",
-  linkedin: "https://www.linkedin.com/in/sangjun-han-optics/",
+  linkedin: "https://www.linkedin.com/in/sangjunhan-optics/",
   avatar: "https://raw.githubusercontent.com/imSangjunHan/Sangjun-Han-portfolio/b3b7a9eaf03705367379d06f2f38c9982ec6eea7/Sangjun%20Han_profile.jpg", // High-quality professional avatar fallback
   office: "5101 Etcheverry Hall, University of California, Berkeley, Berkeley, CA, USA",
   phone: "+1-510-561-3433",

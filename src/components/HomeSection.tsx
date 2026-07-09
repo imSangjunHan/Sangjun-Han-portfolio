@@ -62,45 +62,15 @@ export default function HomeSection({ setActiveTab, onOpenCv }: HomeSectionProps
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-base md:text-lg font-medium text-neutral-600 max-w-3xl mb-6 leading-relaxed text-center px-4"
+          className="max-w-3xl mb-10 text-center px-4"
         >
-          <span className="inline text-2xl md:text-3xl text-neutral-300 font-serif select-none mr-1.5 align-top">“</span>
-          <span className="inline">
-            {personalInfo.tagline.includes(' — ') ? (
-              <>
-                {personalInfo.tagline.split(' — ')[0]} —
-                <br className="hidden md:inline" />
-                <span className="md:hidden"> </span>
-                {personalInfo.tagline.split(' — ')[1]}
-              </>
-            ) : (
-              personalInfo.tagline
-            )}
+          <span className="block text-lg md:text-xl font-bold text-neutral-900 mb-1.5">
+            Designing light across scales
           </span>
-          <span className="inline text-2xl md:text-3xl text-neutral-300 font-serif select-none ml-1.5 align-bottom">”</span>
+          <span className="block text-sm md:text-base font-medium text-neutral-500 leading-relaxed">
+            From nanofabricated active metasurfaces <br /> to diffractive optics for high-resolution 3D manufacturing.
+          </span>
         </motion.p>
-
-        {/* Main Topic Keywords in Button/Badge form */}
-        <motion.div
-          initial={{ y: 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.25, duration: 0.5 }}
-          className="flex flex-wrap items-center justify-center gap-2 mb-10 max-w-2xl px-4"
-        >
-          {[
-            "Active Metasurfaces",
-            "Diffractive Optics",
-            "Wavefront Engineering",
-            "Nanophotonics inverse design"
-          ].map((topic) => (
-            <span
-              key={topic}
-              className="inline-block px-3.5 py-1.5 text-xs font-semibold text-neutral-600 bg-neutral-50 border border-neutral-200/80 rounded-full select-none cursor-default shadow-sm"
-            >
-              {topic}
-            </span>
-          ))}
-        </motion.div>
 
         {/* Centered Framed Portrait */}
         <div className="flex flex-col items-center mb-10">
@@ -121,12 +91,34 @@ export default function HomeSection({ setActiveTab, onOpenCv }: HomeSectionProps
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.35, duration: 0.5 }}
-            className="text-xs md:text-sm font-medium text-neutral-500 max-w-md text-center leading-relaxed"
+            className="text-xs md:text-sm font-medium text-neutral-500 max-w-md text-center leading-relaxed mb-4"
           >
             {personalInfo.role}
             <br />
             at the <span className="font-semibold text-neutral-800">University of California, Berkeley</span>
           </motion.p>
+
+          {/* Main Topic Keywords in Boxed Hashtag form */}
+          <motion.div
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.38, duration: 0.5 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs font-semibold text-neutral-600 select-none cursor-default px-4 w-full"
+          >
+            {[
+              "Active Metasurfaces",
+              "Diffractive Optics",
+              "Wavefront Engineering",
+              "Nanophotonics inverse design"
+            ].map((topic) => (
+              <span
+                key={topic}
+                className="w-full sm:w-auto px-3.5 py-1.5 text-center bg-neutral-50 border border-neutral-200/80 rounded-full shadow-sm hover:bg-neutral-100 hover:text-neutral-800 transition-all duration-200"
+              >
+                #{topic}
+              </span>
+            ))}
+          </motion.div>
         </div>
 
         {/* Emphasized Connect Buttons */}

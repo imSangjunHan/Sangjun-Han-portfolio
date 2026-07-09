@@ -7,7 +7,9 @@ import {
   Copy, 
   Check, 
   ExternalLink,
-  ArrowUpRight
+  ArrowUpRight,
+  Linkedin,
+  GraduationCap
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
@@ -66,10 +68,10 @@ export default function ContactSection() {
             {/* Email list with Copy Buttons */}
             <div className="flex flex-col gap-3.5 mb-8">
               {/* Primary Contact */}
-              <div className="flex items-center justify-between gap-3 bg-white hover:bg-emerald-50/30 border border-emerald-100 p-3.5 rounded-2xl shadow-sm transition-all">
-                <div className="flex flex-col">
+              <div className="flex items-center justify-between gap-3 bg-white hover:bg-emerald-50/30 border border-emerald-100 p-3.5 rounded-2xl shadow-sm transition-all min-w-0">
+                <div className="flex flex-col min-w-0">
                   <span className="text-[10px] text-emerald-600 font-extrabold uppercase tracking-wider mb-0.5">Primary Outreach</span>
-                  <a href="mailto:sangjun.han.contact@gmail.com" className="text-sm font-bold text-neutral-900 hover:underline select-all truncate">
+                  <a href="mailto:sangjun.han.contact@gmail.com" className="text-xs sm:text-sm font-bold text-neutral-900 hover:underline select-all truncate">
                     sangjun.han.contact@gmail.com
                   </a>
                 </div>
@@ -83,10 +85,10 @@ export default function ContactSection() {
               </div>
 
               {/* Academic Email */}
-              <div className="flex items-center justify-between gap-3 bg-white hover:bg-neutral-50/30 border border-neutral-150 p-3.5 rounded-2xl shadow-sm transition-all">
-                <div className="flex flex-col">
+              <div className="flex items-center justify-between gap-3 bg-white hover:bg-neutral-50/30 border border-neutral-150 p-3.5 rounded-2xl shadow-sm transition-all min-w-0">
+                <div className="flex flex-col min-w-0">
                   <span className="text-[10px] text-neutral-400 font-extrabold uppercase tracking-wider mb-0.5">UC Berkeley</span>
-                  <a href="mailto:sangjun.han@berkeley.edu" className="text-sm font-semibold text-neutral-850 hover:underline select-all truncate">
+                  <a href="mailto:sangjun.han@berkeley.edu" className="text-xs sm:text-sm font-semibold text-neutral-850 hover:underline select-all truncate">
                     sangjun.han@berkeley.edu
                   </a>
                 </div>
@@ -119,6 +121,58 @@ export default function ContactSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col gap-6"
         >
+          {/* Academic & Professional Profiles */}
+          <div className="bg-white rounded-3xl p-6 border border-neutral-150 shadow-sm flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-neutral-50 rounded-xl text-neutral-600">
+                <GraduationCap className="w-5 h-5 text-neutral-500" />
+              </div>
+              <span className="text-xs font-bold text-neutral-400 uppercase tracking-widest">
+                Profiles & Networks
+              </span>
+            </div>
+            
+            <div className="flex flex-col gap-2.5">
+              {/* Google Scholar Link */}
+              <a 
+                href={personalInfo.googleScholar}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-2xl border border-neutral-150 bg-white hover:bg-neutral-50 shadow-sm transition-all group cursor-pointer"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-xl shrink-0">
+                    <GraduationCap className="w-4 h-4" />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-[10px] text-neutral-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">Academic Publications</span>
+                    <span className="text-xs font-bold text-neutral-800 truncate">Google Scholar Profile</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-neutral-800 transition-colors shrink-0" />
+              </a>
+
+              {/* LinkedIn Link */}
+              <a 
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-2xl border border-neutral-150 bg-white hover:bg-neutral-50 shadow-sm transition-all group cursor-pointer"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 bg-sky-50 text-sky-600 rounded-xl shrink-0">
+                    <Linkedin className="w-4 h-4" />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-[10px] text-neutral-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">Professional Network</span>
+                    <span className="text-xs font-bold text-neutral-800 truncate">LinkedIn Profile</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-neutral-800 transition-colors shrink-0" />
+              </a>
+            </div>
+          </div>
+
           {/* Coordinates Card */}
           <div className="bg-white rounded-3xl p-8 border border-neutral-150 shadow-sm flex flex-col justify-between flex-grow">
             <div>
@@ -148,27 +202,11 @@ export default function ContactSection() {
               href={`https://maps.google.com/?q=${encodeURIComponent(personalInfo.office)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full py-4 px-6 rounded-2xl bg-neutral-100 hover:bg-neutral-200 text-neutral-850 font-bold text-sm tracking-wide transition-all border border-neutral-250 hover:border-neutral-300"
+              className="inline-flex items-center justify-center gap-2 w-full py-4 px-6 rounded-2xl bg-neutral-100 hover:bg-neutral-200 text-neutral-850 font-bold text-sm tracking-wide transition-all border border-neutral-250 hover:border-neutral-300 cursor-pointer"
             >
               <span>View Office on Google Maps</span>
               <ExternalLink className="w-4 h-4 text-neutral-500" />
             </a>
-          </div>
-
-          {/* Affiliation Bar */}
-          <div className="bg-neutral-50 p-6 rounded-3xl border border-neutral-200/60 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="p-2.5 bg-white border border-neutral-200 rounded-xl">
-                <Building2 className="w-6 h-6 text-neutral-500" />
-              </div>
-              <div>
-                <h4 className="text-xs font-bold text-neutral-800 leading-snug">UC Berkeley Postdoctoral Fellow</h4>
-                <p className="text-[10px] text-neutral-400 font-medium mt-0.5">Department of Mechanical Engineering</p>
-              </div>
-            </div>
-            <span className="text-[10px] font-extrabold text-blue-700 bg-blue-100/80 px-2.5 py-1 rounded-lg tracking-wider shrink-0 uppercase">
-              Postdoc
-            </span>
           </div>
         </motion.div>
       </div>
