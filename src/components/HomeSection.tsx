@@ -30,20 +30,18 @@ export default function HomeSection({ setActiveTab, onOpenCv }: HomeSectionProps
 
       <div className="relative z-10 max-w-4xl w-full flex flex-col items-center text-center">
         {/* Email Pill Tag */}
-        <motion.a
-          href={`mailto:${personalInfo.email}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <motion.button
+          onClick={() => setActiveTab('contact')}
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-yellow-300 hover:bg-yellow-400 text-black text-xs font-semibold tracking-wider uppercase shadow-sm mb-6 cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-yellow-300 hover:bg-yellow-400 text-black text-xs font-semibold tracking-wider uppercase shadow-sm mb-6 cursor-pointer transition-colors border-none outline-none"
         >
           <Mail className="w-3.5 h-3.5" />
           <span>{personalInfo.email}</span>
-        </motion.a>
+        </motion.button>
 
         {/* Floating Intro */}
         <motion.h1
