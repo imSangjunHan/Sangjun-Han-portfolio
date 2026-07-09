@@ -1,363 +1,184 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { 
   Mail, 
   MapPin, 
-  Send, 
-  CheckCircle,
-  Building2,
-  Copy,
-  Check,
-  ExternalLink
+  Building2, 
+  Copy, 
+  Check, 
+  ExternalLink,
+  ArrowUpRight
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    affiliation: '',
-    subject: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedBody, setCopiedBody] = useState(false);
+  const [copiedEmail1, setCopiedEmail1] = useState(false);
+  const [copiedEmail2, setCopiedEmail2] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleCopyEmail = (email: string) => {
+  const handleCopyEmail = (email: string, setCopiedState: React.Dispatch<React.SetStateAction<boolean>>) => {
     navigator.clipboard.writeText(email);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+    setCopiedState(true);
+    setTimeout(() => setCopiedState(false), 2000);
   };
-
-  const handleCopyBody = () => {
-    const subjectLine = formData.subject ? `[Portfolio Inquiry] ${formData.subject}` : '[Portfolio Inquiry] Contact from Portfolio Website';
-    const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nAffiliation: ${formData.affiliation || 'None'}\n\nMessage:\n${formData.message}`;
-    const fullText = `To: sangjun.han.contact@gmail.com\nSubject: ${subjectLine}\n\n${emailBody}`;
-    
-    navigator.clipboard.writeText(fullText);
-    setCopiedBody(true);
-    setTimeout(() => setCopiedBody(false), 2000);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-
-    setIsSubmitting(true);
-
-    const subjectLine = formData.subject ? `[Inquiry] ${formData.subject}` : '[Inquiry] Contact from Portfolio Website';
-    const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nAffiliation: ${formData.affiliation || 'None'}\n\nMessage:\n${formData.message}`;
-    const mailtoUrl = `mailto:sangjun.han.contact@gmail.com?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(emailBody)}`;
-
-    // Try opening via iframe-escape safe redirect/window launch
-    try {
-      const link = document.createElement('a');
-      link.href = mailtoUrl;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (err) {
-      console.warn('Mailto link launch blocked or failed:', err);
-    }
-
-    // Set success to true to show fallback copying help panel
-    setSubmitSuccess(true);
-    setIsSubmitting(false);
-  };
-
-  const contactCards = [
-    {
-      title: "Inquiries & Opportunities",
-      detail: "sangjun.han.contact@gmail.com",
-      sub: "Open to discussions regarding research collaboration, postdoctoral partnerships, industry opportunities, or recruiter outreach.",
-      actionLabel: "Email Dr. Han",
-      href: "mailto:sangjun.han.contact@gmail.com",
-      icon: Mail,
-      accent: "text-emerald-500 bg-emerald-50"
-    },
-    {
-      title: "Office & Lab Coordinates",
-      detail: "5101 Etcheverry Hall",
-      sub: "Taylor Lab, Department of Mechanical Engineering, University of California, Berkeley.",
-      actionLabel: "View on Google Maps",
-      href: `https://maps.google.com/?q=${encodeURIComponent(personalInfo.office)}`,
-      icon: MapPin,
-      accent: "text-blue-500 bg-blue-50"
-    }
-  ];
 
   return (
-    <div className="max-w-5xl mx-auto py-12 px-6" id="contact-view">
+    <div className="max-w-4xl mx-auto py-16 px-6" id="contact-view">
       {/* Header */}
-      <div className="mb-12 text-center">
-        <h1 className="text-3xl font-display font-black text-neutral-900 tracking-tight mb-2">
+      <div className="mb-16 text-center">
+        <motion.h1 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-4xl font-display font-black text-neutral-900 tracking-tight mb-3"
+        >
           Get in Touch
-        </h1>
-        <p className="text-sm text-neutral-500 max-w-lg mx-auto">
-          Have an academic inquiry, collaboration proposal, industry recruitment opportunity, or research question? Please fill out the contact form below or reach out directly.
-        </p>
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-neutral-500 max-w-lg mx-auto text-sm leading-relaxed"
+        >
+          Whether you are looking for research collaboration, postdoc partnerships, industry opportunities, or recruiter outreach, feel free to connect.
+        </motion.p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-        {/* Left Column (Directories) */}
-        <div className="lg:col-span-2 flex flex-col gap-6">
-          {contactCards.map((card, idx) => {
-            const Icon = card.icon;
-            return (
-              <div 
-                key={idx}
-                className="bg-white p-5 rounded-2xl border border-neutral-150 shadow-sm flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className={`p-2.5 rounded-xl ${card.accent}`}>
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider leading-none">
-                      {card.title}
-                    </h3>
-                  </div>
-
-                  {idx === 0 ? (
-                    <div className="flex flex-col gap-2 mb-2 font-display text-sm font-bold text-neutral-900">
-                      <div className="flex items-center justify-between gap-2 group">
-                        <span className="leading-tight select-all">sangjun.han.contact@gmail.com</span>
-                        <button 
-                          onClick={() => handleCopyEmail('sangjun.han.contact@gmail.com')}
-                          className="p-1 rounded bg-neutral-50 hover:bg-neutral-100 text-neutral-400 hover:text-neutral-600 transition-colors cursor-pointer border-none outline-none"
-                          title="Copy email to clipboard"
-                        >
-                          {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                        </button>
-                      </div>
-                      <div className="flex items-center justify-between gap-2 border-t border-neutral-100 pt-2">
-                        <span className="leading-tight select-all">sangjun.han@berkeley.edu</span>
-                      </div>
-                    </div>
-                  ) : (
-                    <p className="text-sm font-bold text-neutral-900 font-display mb-1.5 leading-tight select-all">
-                      {card.detail}
-                    </p>
-                  )}
-                  <p className="text-[11px] text-neutral-500 leading-relaxed mb-4">
-                    {card.sub}
-                  </p>
-                </div>
-
-                <a 
-                  href={card.href}
-                  onClick={(e) => {
-                    if (idx === 0) {
-                      e.preventDefault();
-                      const formElement = document.getElementById('contact-form');
-                      if (formElement) {
-                        formElement.scrollIntoView({ behavior: 'smooth' });
-                        const subjectInput = document.getElementById('form-subject');
-                        if (subjectInput) {
-                          subjectInput.focus();
-                        }
-                      }
-                    }
-                  }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-[11px] font-bold text-black hover:underline gap-1 mt-1 self-start cursor-pointer"
-                  id={`contact-card-action-${idx}`}
-                >
-                  <span>{card.actionLabel}</span>
-                  <span>→</span>
-                </a>
+      {/* Main Grid containing the styled options */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        {/* Email Card (Most prominent) */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-neutral-900 text-white rounded-3xl p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group border border-neutral-800"
+        >
+          <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-500/15 transition-all duration-500" />
+          
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-3 bg-neutral-800 rounded-2xl text-emerald-400">
+                <Mail className="w-6 h-6" />
               </div>
-            );
-          })}
+              <span className="text-xs font-bold text-neutral-400 uppercase tracking-widest">
+                Email Inquiries & Outreach
+              </span>
+            </div>
 
-          {/* Scholars Citation Footnote link */}
-          <div className="bg-neutral-50 p-5 rounded-2xl border border-neutral-200/50 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <Building2 className="w-5 h-5 text-neutral-400" />
-              <div>
-                <h4 className="text-xs font-bold text-neutral-800 leading-snug">UC Berkeley Affiliation</h4>
-                <p className="text-[10px] text-neutral-400 font-medium">Department of Mechanical Engineering</p>
+            <h3 className="text-xl font-display font-bold text-white mb-3">
+              Direct Communication Channel
+            </h3>
+            <p className="text-xs text-neutral-400 leading-relaxed mb-8">
+              Send an inquiry directly to Dr. Han. For rapid correspondence regarding nanophotonics research, recruiter outreach, or general queries, please use the links below.
+            </p>
+
+            {/* Email list with Copy Buttons */}
+            <div className="flex flex-col gap-3.5 mb-8">
+              {/* Primary Contact */}
+              <div className="flex items-center justify-between gap-3 bg-neutral-800/60 hover:bg-neutral-800 border border-neutral-700/30 p-3.5 rounded-2xl transition-all">
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-emerald-400 font-extrabold uppercase tracking-wider mb-0.5">Primary Outreach</span>
+                  <a href="mailto:sangjun.han.contact@gmail.com" className="text-sm font-semibold text-white hover:underline select-all truncate">
+                    sangjun.han.contact@gmail.com
+                  </a>
+                </div>
+                <button 
+                  onClick={() => handleCopyEmail('sangjun.han.contact@gmail.com', setCopiedEmail1)}
+                  className="p-2 rounded-xl bg-neutral-700/50 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-all cursor-pointer border-none outline-none shrink-0"
+                  title="Copy email to clipboard"
+                >
+                  {copiedEmail1 ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
+
+              {/* Academic Email */}
+              <div className="flex items-center justify-between gap-3 bg-neutral-800/30 hover:bg-neutral-850 border border-neutral-800 p-3.5 rounded-2xl transition-all">
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-neutral-400 font-extrabold uppercase tracking-wider mb-0.5">UC Berkeley</span>
+                  <a href="mailto:sangjun.han@berkeley.edu" className="text-sm font-semibold text-neutral-200 hover:underline select-all truncate">
+                    sangjun.han@berkeley.edu
+                  </a>
+                </div>
+                <button 
+                  onClick={() => handleCopyEmail('sangjun.han@berkeley.edu', setCopiedEmail2)}
+                  className="p-2 rounded-xl bg-neutral-800 hover:bg-neutral-750 text-neutral-400 hover:text-neutral-200 transition-all cursor-pointer border-none outline-none shrink-0"
+                  title="Copy email to clipboard"
+                >
+                  {copiedEmail2 ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </button>
               </div>
             </div>
-            <span className="text-[9px] font-extrabold text-blue-700 bg-blue-100 px-2 py-0.5 rounded tracking-wide shrink-0">
-              POSTDOC
+          </div>
+
+          {/* Big Action Button */}
+          <a 
+            href="mailto:sangjun.han.contact@gmail.com"
+            className="inline-flex items-center justify-center gap-2 w-full py-4 px-6 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-sm tracking-wide transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98]"
+          >
+            <Mail className="w-4 h-4" />
+            <span>Email Dr. Han Now</span>
+            <ArrowUpRight className="w-4 h-4 text-neutral-950/70" />
+          </a>
+        </motion.div>
+
+        {/* Info & Lab Card */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-col gap-6"
+        >
+          {/* Coordinates Card */}
+          <div className="bg-white rounded-3xl p-8 border border-neutral-150 shadow-sm flex flex-col justify-between flex-grow">
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-blue-50 rounded-2xl text-blue-500">
+                  <MapPin className="w-6 h-6" />
+                </div>
+                <span className="text-xs font-bold text-neutral-400 uppercase tracking-widest">
+                  Office Coordinates
+                </span>
+              </div>
+
+              <h3 className="text-xl font-display font-bold text-neutral-900 mb-2">
+                Taylor Lab @ UC Berkeley
+              </h3>
+              <p className="text-sm font-semibold text-neutral-800 mb-3 select-all">
+                5101 Etcheverry Hall
+              </p>
+              <p className="text-xs text-neutral-500 leading-relaxed mb-8">
+                Department of Mechanical Engineering, University of California, Berkeley.
+                Please feel free to visit or drop by for scheduled research discussions.
+              </p>
+            </div>
+
+            {/* Google Maps CTA */}
+            <a 
+              href={`https://maps.google.com/?q=${encodeURIComponent(personalInfo.office)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full py-4 px-6 rounded-2xl bg-neutral-100 hover:bg-neutral-200 text-neutral-850 font-bold text-sm tracking-wide transition-all border border-neutral-250 hover:border-neutral-300"
+            >
+              <span>View Office on Google Maps</span>
+              <ExternalLink className="w-4 h-4 text-neutral-500" />
+            </a>
+          </div>
+
+          {/* Affiliation Bar */}
+          <div className="bg-neutral-50 p-6 rounded-3xl border border-neutral-200/60 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="p-2.5 bg-white border border-neutral-200 rounded-xl">
+                <Building2 className="w-6 h-6 text-neutral-500" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-neutral-800 leading-snug">UC Berkeley Postdoctoral Fellow</h4>
+                <p className="text-[10px] text-neutral-400 font-medium mt-0.5">Department of Mechanical Engineering</p>
+              </div>
+            </div>
+            <span className="text-[10px] font-extrabold text-blue-700 bg-blue-100/80 px-2.5 py-1 rounded-lg tracking-wider shrink-0 uppercase">
+              Postdoc
             </span>
           </div>
-        </div>
-
-        {/* Right Column (Contact Form) */}
-        <div className="lg:col-span-3">
-          <form 
-            onSubmit={handleSubmit}
-            className="bg-white p-6 md:p-8 rounded-3xl border border-neutral-150 shadow-sm flex flex-col gap-5"
-            id="contact-form"
-          >
-            <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider border-b border-neutral-100 pb-2 flex items-center gap-2">
-              <Send className="w-4.5 h-4.5 text-neutral-400" />
-              <span>Send Message</span>
-            </h3>
-
-            {/* Notification Bar */}
-            <AnimatePresence>
-              {submitSuccess && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="bg-emerald-50 border border-emerald-150 p-4 rounded-2xl text-emerald-950 text-xs flex flex-col gap-3 shadow-sm"
-                  id="contact-form-success"
-                >
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-bold leading-tight">Opened Email Client!</p>
-                      <p className="text-[11px] text-emerald-700 font-medium mt-1">
-                        We attempted to open your local email client (such as Gmail or Mail app) pre-filled with your message. 
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Fallback Help Center */}
-                  <div className="bg-white/80 p-3.5 rounded-xl border border-emerald-100 flex flex-col gap-2.5 mt-1">
-                    <p className="text-[10px] text-neutral-500 font-semibold uppercase tracking-wider">
-                      ⚠️ Did the email app fail to open?
-                    </p>
-                    <p className="text-[11px] text-neutral-600 leading-normal">
-                      Some browsers or security settings block direct mail opening in sandboxes. You can copy the email or the complete pre-formatted message below to send manually:
-                    </p>
-                    <div className="flex flex-wrap gap-2 mt-1">
-                      <button
-                        type="button"
-                        onClick={() => handleCopyEmail('sangjun.han.contact@gmail.com')}
-                        className="flex items-center gap-1.5 text-[10px] font-bold text-neutral-700 bg-white hover:bg-neutral-50 border border-neutral-200 px-3 py-2 rounded-lg transition-all cursor-pointer outline-none"
-                      >
-                        {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-400" />}
-                        <span>{copiedEmail ? 'Copied Email!' : 'Copy Email Address'}</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleCopyBody}
-                        className="flex items-center gap-1.5 text-[10px] font-bold text-neutral-700 bg-white hover:bg-neutral-50 border border-neutral-200 px-3 py-2 rounded-lg transition-all cursor-pointer outline-none"
-                      >
-                        {copiedBody ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-400" />}
-                        <span>{copiedBody ? 'Copied Full Content!' : 'Copy Full Message Text'}</span>
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Form Rows */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Name */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider" htmlFor="form-name">
-                  Full Name <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="form-name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="e.g., Prof. Jane Doe"
-                  className="bg-neutral-50 border border-neutral-200 px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-black"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider" htmlFor="form-email">
-                  Email Address <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="form-email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="e.g., colleague@institution.edu"
-                  className="bg-neutral-50 border border-neutral-200 px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-black"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Affiliation */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider" htmlFor="form-affiliation">
-                  Affiliation / Company
-                </label>
-                <input
-                  type="text"
-                  id="form-affiliation"
-                  name="affiliation"
-                  value={formData.affiliation}
-                  onChange={handleChange}
-                  placeholder="e.g., Stanford University"
-                  className="bg-neutral-50 border border-neutral-200 px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-black"
-                />
-              </div>
-
-              {/* Subject */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider" htmlFor="form-subject">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="form-subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="e.g., Inquiry regarding DOE design"
-                  className="bg-neutral-50 border border-neutral-200 px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-black"
-                />
-              </div>
-            </div>
-
-            {/* Message Body */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider" htmlFor="form-message">
-                Your Message <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                id="form-message"
-                name="message"
-                required
-                rows={5}
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Type your message details here..."
-                className="bg-neutral-50 border border-neutral-200 px-3.5 py-2.5 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-black resize-y"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
-              className="flex items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-850 text-white disabled:bg-neutral-300 disabled:text-neutral-500 py-3.5 rounded-xl text-xs font-bold transition-all mt-2 cursor-pointer shadow-md select-none border-none outline-none"
-              id="contact-form-submit-btn"
-            >
-              <Send className="w-3.5 h-3.5" />
-              <span>Launch Mail Application</span>
-            </button>
-          </form>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
