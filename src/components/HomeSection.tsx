@@ -32,6 +32,8 @@ export default function HomeSection({ setActiveTab, onOpenCv }: HomeSectionProps
         {/* Email Pill Tag */}
         <motion.a
           href={`mailto:${personalInfo.email}`}
+          target="_blank"
+          rel="noopener noreferrer"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           whileHover={{ scale: 1.05 }}

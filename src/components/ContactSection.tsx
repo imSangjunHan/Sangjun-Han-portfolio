@@ -37,8 +37,14 @@ export default function ContactSection() {
     const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nAffiliation: ${formData.affiliation || 'None'}\n\nMessage:\n${formData.message}`;
     const mailtoUrl = `mailto:sangjun.han.contact@gmail.com?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(emailBody)}`;
 
-    // Trigger mail client launch
-    window.location.href = mailtoUrl;
+    // Trigger mail client launch safely from within iframe
+    const link = document.createElement('a');
+    link.href = mailtoUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
     setTimeout(() => {
       setIsSubmitting(false);
@@ -120,8 +126,8 @@ export default function ContactSection() {
 
                 <a 
                   href={card.href}
-                  target={card.href.startsWith('http') ? '_blank' : undefined}
-                  rel={card.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center text-[11px] font-bold text-black hover:underline gap-1 mt-1 self-start cursor-pointer"
                   id={`contact-card-action-${idx}`}
                 >
