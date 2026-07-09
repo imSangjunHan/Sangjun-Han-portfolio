@@ -143,7 +143,7 @@ export default function AchievementsSection({ activeSubTab: propActiveSubTab, se
                         className="p-5 flex items-start gap-4 justify-between cursor-pointer select-none"
                       >
                         {pub.thumbnailImage && (
-                          <div className="w-24 md:w-36 aspect-[4/3] rounded-none overflow-hidden border border-neutral-200 shrink-0 bg-neutral-50 shadow-sm flex items-center justify-center">
+                          <div className="hidden md:flex w-36 aspect-[4/3] rounded-none overflow-hidden border border-neutral-200 shrink-0 bg-neutral-50 shadow-sm items-center justify-center">
                             <img 
                               src={pub.thumbnailImage} 
                               alt={`${pub.journal} Thumbnail`}
