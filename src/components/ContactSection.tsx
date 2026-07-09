@@ -24,99 +24,91 @@ export default function ContactSection() {
   return (
     <div className="max-w-4xl mx-auto py-16 px-6" id="contact-view">
       {/* Header */}
-      <div className="mb-16 text-center">
+      <div className="mb-10 text-center">
         <motion.h1 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-4xl font-display font-black text-neutral-900 tracking-tight mb-3"
+          className="text-4xl font-display font-black text-neutral-900 tracking-tight"
         >
           Get in Touch
         </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-neutral-500 max-w-lg mx-auto text-sm leading-relaxed"
-        >
-          Whether you are looking for research collaboration, postdoc partnerships, industry opportunities, or recruiter outreach, feel free to connect.
-        </motion.p>
       </div>
 
       {/* Main Grid containing the styled options */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-        {/* Email Card (Most prominent) */}
+        {/* Email Card (Most prominent - Bright and Emphasized) */}
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-neutral-900 text-white rounded-3xl p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group border border-neutral-800"
+          className="bg-gradient-to-br from-white to-emerald-50/40 rounded-3xl p-8 flex flex-col justify-between shadow-md relative overflow-hidden group border-2 border-emerald-500/80"
         >
-          <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-500/15 transition-all duration-500" />
+          <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-500/10 transition-all duration-500" />
           
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-neutral-800 rounded-2xl text-emerald-400">
+              <div className="p-3 bg-emerald-100 rounded-2xl text-emerald-600">
                 <Mail className="w-6 h-6" />
               </div>
-              <span className="text-xs font-bold text-neutral-400 uppercase tracking-widest">
+              <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest">
                 Email Inquiries & Outreach
               </span>
             </div>
 
-            <h3 className="text-xl font-display font-bold text-white mb-3">
+            <h3 className="text-xl font-display font-black text-neutral-900 mb-3">
               Direct Communication Channel
             </h3>
-            <p className="text-xs text-neutral-400 leading-relaxed mb-8">
+            <p className="text-xs text-neutral-600 leading-relaxed mb-8">
               Send an inquiry directly to Dr. Han. For rapid correspondence regarding nanophotonics research, recruiter outreach, or general queries, please use the links below.
             </p>
 
             {/* Email list with Copy Buttons */}
             <div className="flex flex-col gap-3.5 mb-8">
               {/* Primary Contact */}
-              <div className="flex items-center justify-between gap-3 bg-neutral-800/60 hover:bg-neutral-800 border border-neutral-700/30 p-3.5 rounded-2xl transition-all">
+              <div className="flex items-center justify-between gap-3 bg-white hover:bg-emerald-50/30 border border-emerald-100 p-3.5 rounded-2xl shadow-sm transition-all">
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-emerald-400 font-extrabold uppercase tracking-wider mb-0.5">Primary Outreach</span>
-                  <a href="mailto:sangjun.han.contact@gmail.com" className="text-sm font-semibold text-white hover:underline select-all truncate">
+                  <span className="text-[10px] text-emerald-600 font-extrabold uppercase tracking-wider mb-0.5">Primary Outreach</span>
+                  <a href="mailto:sangjun.han.contact@gmail.com" className="text-sm font-bold text-neutral-900 hover:underline select-all truncate">
                     sangjun.han.contact@gmail.com
                   </a>
                 </div>
                 <button 
                   onClick={() => handleCopyEmail('sangjun.han.contact@gmail.com', setCopiedEmail1)}
-                  className="p-2 rounded-xl bg-neutral-700/50 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-all cursor-pointer border-none outline-none shrink-0"
+                  className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200/80 text-neutral-500 hover:text-neutral-800 transition-all cursor-pointer border-none outline-none shrink-0"
                   title="Copy email to clipboard"
                 >
-                  {copiedEmail1 ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  {copiedEmail1 ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
 
               {/* Academic Email */}
-              <div className="flex items-center justify-between gap-3 bg-neutral-800/30 hover:bg-neutral-850 border border-neutral-800 p-3.5 rounded-2xl transition-all">
+              <div className="flex items-center justify-between gap-3 bg-white hover:bg-neutral-50/30 border border-neutral-150 p-3.5 rounded-2xl shadow-sm transition-all">
                 <div className="flex flex-col">
                   <span className="text-[10px] text-neutral-400 font-extrabold uppercase tracking-wider mb-0.5">UC Berkeley</span>
-                  <a href="mailto:sangjun.han@berkeley.edu" className="text-sm font-semibold text-neutral-200 hover:underline select-all truncate">
+                  <a href="mailto:sangjun.han@berkeley.edu" className="text-sm font-semibold text-neutral-850 hover:underline select-all truncate">
                     sangjun.han@berkeley.edu
                   </a>
                 </div>
                 <button 
                   onClick={() => handleCopyEmail('sangjun.han@berkeley.edu', setCopiedEmail2)}
-                  className="p-2 rounded-xl bg-neutral-800 hover:bg-neutral-750 text-neutral-400 hover:text-neutral-200 transition-all cursor-pointer border-none outline-none shrink-0"
+                  className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200/80 text-neutral-400 hover:text-neutral-850 transition-all cursor-pointer border-none outline-none shrink-0"
                   title="Copy email to clipboard"
                 >
-                  {copiedEmail2 ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  {copiedEmail2 ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Big Action Button */}
+          {/* Big Action Button - Prominent high contrast style */}
           <a 
             href="mailto:sangjun.han.contact@gmail.com"
-            className="inline-flex items-center justify-center gap-2 w-full py-4 px-6 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-sm tracking-wide transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98]"
+            className="inline-flex items-center justify-center gap-2 w-full py-4 px-6 rounded-2xl bg-neutral-950 hover:bg-neutral-850 text-white font-bold text-sm tracking-wide transition-all shadow-md active:scale-[0.98]"
           >
             <Mail className="w-4 h-4" />
             <span>Email Dr. Han Now</span>
-            <ArrowUpRight className="w-4 h-4 text-neutral-950/70" />
+            <ArrowUpRight className="w-4 h-4 text-white/70" />
           </a>
         </motion.div>
 
