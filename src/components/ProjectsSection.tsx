@@ -167,6 +167,35 @@ export default function ProjectsSection() {
                   {selectedProject.description}
                 </p>
 
+                {/* Embedded Videos for Active Metasurface Project */}
+                {selectedProject.id === 'active-metasurfaces' && (
+                  <div className="mb-8">
+                    <h4 className="text-sm font-bold text-neutral-900 mb-4 flex items-center gap-2 uppercase tracking-wider border-l-2 border-black pl-2">
+                      Featured Presentation
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div className="aspect-video w-full rounded-2xl overflow-hidden border border-neutral-150 shadow-sm bg-neutral-50">
+                        <iframe
+                          src="https://www.youtube.com/embed/mdBvC1vUxwI"
+                          title="Active Graphene Metasurface Modulation Demo"
+                          className="w-full h-full border-0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                      <div className="aspect-video w-full rounded-2xl overflow-hidden border border-neutral-150 shadow-sm bg-neutral-50">
+                        <iframe
+                          src="https://www.youtube.com/embed/yyhIuicz3ck"
+                          title="Graphene active beam steering Demo"
+                          className="w-full h-full border-0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Key Details Scope */}
                 <div className="mb-8">
                   <h4 className="text-sm font-bold text-neutral-900 mb-4 flex items-center gap-2 uppercase tracking-wider border-l-2 border-black pl-2">

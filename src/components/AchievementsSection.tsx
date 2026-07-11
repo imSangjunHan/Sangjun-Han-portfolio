@@ -227,6 +227,40 @@ export default function AchievementsSection({ activeSubTab: propActiveSubTab, se
                                 </p>
                               </div>
 
+                              {/* Video Demonstration */}
+                              {pub.id === 3 && (
+                                <div className="mb-5">
+                                  <h4 className="font-bold text-neutral-800 uppercase tracking-wider text-[10px] mb-2 border-l-2 border-black pl-2">
+                                    Featured Video
+                                  </h4>
+                                  <div className="aspect-video max-w-md w-full rounded-2xl overflow-hidden border border-neutral-150 shadow-sm bg-neutral-50">
+                                    <iframe
+                                      src="https://www.youtube.com/embed/mdBvC1vUxwI"
+                                      title="Single-gate electro-optic beam switching metasurfaces"
+                                      className="w-full h-full border-0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                      allowFullScreen
+                                    ></iframe>
+                                  </div>
+                                </div>
+                              )}
+                              {pub.id === 7 && (
+                                <div className="mb-5">
+                                  <h4 className="font-bold text-neutral-800 uppercase tracking-wider text-[10px] mb-2 border-l-2 border-black pl-2">
+                                    Featured Video
+                                  </h4>
+                                  <div className="aspect-video max-w-md w-full rounded-2xl overflow-hidden border border-neutral-150 shadow-sm bg-neutral-50">
+                                    <iframe
+                                      src="https://www.youtube.com/embed/yyhIuicz3ck"
+                                      title="Complete complex amplitude modulation with electronically tunable plasmonic metamolecules"
+                                      className="w-full h-full border-0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                      allowFullScreen
+                                    ></iframe>
+                                  </div>
+                                </div>
+                              )}
+
                               {/* Emphasis Bullets */}
                               <div className="mb-5">
                                 <h4 className="font-bold text-neutral-800 uppercase tracking-wider text-[10px] mb-1.5">

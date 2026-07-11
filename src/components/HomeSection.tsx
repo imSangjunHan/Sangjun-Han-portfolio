@@ -50,7 +50,6 @@ export default function HomeSection({ setActiveTab, onOpenCv }: HomeSectionProps
           transition={{ delay: 0.1, duration: 0.5 }}
           className="text-4xl md:text-6xl font-display font-extrabold text-neutral-900 tracking-tight leading-tight mb-4 flex flex-wrap items-center justify-center gap-2"
         >
-          <span className="animate-wave mr-1">👋</span>
           <span>Hi, I'm</span>
           <span className="text-black underline decoration-yellow-400 decoration-wavy decoration-3 underline-offset-4">
             {personalInfo.name}
