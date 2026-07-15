@@ -95,7 +95,7 @@ export default function App() {
             id="header-cv-btn"
           >
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>Academic CV</span>
+            <span>Download CV</span>
           </a>
         </div>
       </header>
